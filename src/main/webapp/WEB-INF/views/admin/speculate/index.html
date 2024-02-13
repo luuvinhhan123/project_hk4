@@ -65,7 +65,7 @@
                                  "https://media.geeksforgeeks.org/wp-content/uploads/20221210182148/Untitled-design-(29).png"
                          class="nav-img"
                          alt="dashboard">
-                    <h4><a th:href="@{/admin/dashboard}" style="color: white" class="buttonredirect">Dashboard</a></h4>
+                    <a href="/admin/dashboard" style="color: white" class="buttonredirect"><h4> Dashboard</h4></a>
                 </div>
 
                 <div class="option2 nav-option">
@@ -81,7 +81,7 @@
                                  "https://media.geeksforgeeks.org/wp-content/uploads/20221210183323/10.png"
                          class="nav-img"
                          alt="blog">
-                    <h4><a th:href="@{/admin/specailcategories}" class="buttonredirect">SpecailCate</a></h4>
+                    <h4><a th:href="@{/admin/categorisations}" class="buttonredirect">SpecailCate</a></h4>
                 </div>
 
                 <div class="nav-option option3">
@@ -127,56 +127,10 @@
             </div>
         </div>
 
-        <div class="box-container">
-
-            <div class="box box1">
-                <div class="text">
-                    <h2 class="topic-heading">60.5k</h2>
-                    <h2 class="topic">Article Views</h2>
-                </div>
-
-                <img src=
-                             "https://media.geeksforgeeks.org/wp-content/uploads/20221210184645/Untitled-design-(31).png"
-                     alt="Views">
-            </div>
-
-            <div class="box box2">
-                <div class="text">
-                    <h2 class="topic-heading">150</h2>
-                    <h2 class="topic">Likes</h2>
-                </div>
-
-                <img src=
-                             "https://media.geeksforgeeks.org/wp-content/uploads/20221210185030/14.png"
-                     alt="likes">
-            </div>
-
-            <div class="box box3">
-                <div class="text">
-                    <h2 class="topic-heading">320</h2>
-                    <h2 class="topic">Comments</h2>
-                </div>
-
-                <img src=
-                             "https://media.geeksforgeeks.org/wp-content/uploads/20221210184645/Untitled-design-(32).png"
-                     alt="comments">
-            </div>
-
-            <div class="box box4">
-                <div class="text">
-                    <h2 class="topic-heading">70</h2>
-                    <h2 class="topic">Published</h2>
-                </div>
-
-                <img src=
-                             "https://media.geeksforgeeks.org/wp-content/uploads/20221210185029/13.png" alt="published">
-            </div>
-        </div>
-
         <div class="report-container">
             <div class="report-header">
                 <h1 class="recent-Articles">SpecailCate List</h1>
-                <button class="view"><a style="text-decoration: none;color: white"  th:href="@{/admin/specailcategories/create}">Create new</a></button>
+                <button class="view"><a style="text-decoration: none;color: white"  th:href="@{/admin/categorisations/create}">Create new</a></button>
             </div>
 
             <table class="items">
@@ -189,13 +143,13 @@
                 </thead>
 
                 <tbody >
-                <tr style="margin: 10px" th:each="specailcate : ${specailcates}">
+                <tr style="margin: 10px" th:each="specailcate : ${speculates}">
                     <th  th:text="${specailcate.id}"></th>
                     <th th:text="${specailcate.name}"></th>
                     <th>
-                        <a class="buttonedit" th:href="@{'/admin/specailcategories/edit/' + ${specailcate.id}}">Edit</a>
+                        <a class="buttonedit" th:href="@{'/admin/categorisations/edit/' + ${specailcate.id}}">Edit</a>
                         &nbsp;&nbsp;&nbsp;
-                        <a class="buttondelete" th:href="@{'/admin/specailcategories/delete/' + ${specailcate.id}}">Delete</a>
+                        <a class="buttondelete" th:href="@{'/admin/categorisations/delete/' + ${specailcate.id}}">Delete</a>
                     </th>
                 </tr>
                 </tbody>
@@ -487,7 +441,7 @@
     .report-container {
         min-height: 300px;
         max-width: 1200px;
-        margin: 70px auto 0px auto;
+        margin: 10px auto 0px auto;
         background-color: #ffffff;
         border-radius: 30px;
         box-shadow: 3px 3px 10px rgb(188, 188, 188);

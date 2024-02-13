@@ -3,7 +3,7 @@ package com.aptech.eProject.controllers.admin;
 import com.aptech.eProject.models.Category;
 import com.aptech.eProject.models.SpecialCategory;
 import com.aptech.eProject.services.CategoryService;
-import com.aptech.eProject.services.SpecailCategoryService;
+import com.aptech.eProject.services.SpeculateCategoryService;
 import org.springframework.ui.Model;
 import com.aptech.eProject.models.Product;
 import com.aptech.eProject.services.ProductService;
@@ -27,7 +27,7 @@ public class ProductController {
     CategoryService categoryservice;
 
     @Autowired
-    SpecailCategoryService specailCategoryService;
+    SpeculateCategoryService speculateCategoryService;
 
     @GetMapping("")
     public ModelAndView index(ModelAndView model) {
@@ -45,17 +45,25 @@ public class ProductController {
     @GetMapping("/edit/{id}")
     public ModelAndView edit(ModelAndView model, @PathVariable String id) {
         model.addObject("categories", categoryservice.getAll());
-        model.addObject("categories", categoryservice.getAll());
         model.addObject("product", productService.findById(Integer.parseInt(id)));
+        model.addObject("specailcates", speculateCategoryService.getAll());
         model.setViewName("admin/product/edit");
         return model;
     }
 
     @PostMapping("/edit/{id}")
     public String update(Model model, @PathVariable String id, @Valid Product product, BindingResult result) {
-        if (result.hasErrors()) {
+
+        Product existingProduct = productService.findProductByTitle(product.getTitle());
+        if(result.hasErrors()) {
             model.addAttribute("categories", categoryservice.getAll());
-            model.addAttribute("product", product);
+            model.addAttribute("specailcates", speculateCategoryService.getAll());
+            return "admin/product/edit";
+        }
+        if (existingProduct != null && existingProduct.getTitle() != null && !existingProduct.getTitle().isEmpty()) {
+            model.addAttribute("specailcates", speculateCategoryService.getAll());
+            model.addAttribute("categories", categoryservice.getAll());
+            result.rejectValue("title",null,  "There is already a product registered with the same name");
             return "admin/product/edit";
         }
 
@@ -67,7 +75,7 @@ public class ProductController {
     public ModelAndView create(ModelAndView model) {
         model.addObject("product", new Product());
         model.addObject("categories", categoryservice.getAll());
-        model.addObject("specailcates", specailCategoryService.getAll());
+        model.addObject("specailcates", speculateCategoryService.getAll());
         model.setViewName("admin/product/create");
         return model;
     }
@@ -76,15 +84,14 @@ public class ProductController {
     public String createProduct(Model model, @Valid Product product, BindingResult result) {
 
         Product existingProduct = productService.findProductByTitle(product.getTitle());
-
-        if (existingProduct != null && existingProduct.getTitle() != null
-                && !existingProduct.getTitle().isEmpty()) {
-            result.rejectValue("title", null,
-                    "There is already an product registered with the same name");
-        }
-        if(result.hasErrors()) {
+        if (existingProduct != null && existingProduct.getTitle() != null && !existingProduct.getTitle().isEmpty()) {
             model.addAttribute("categories", categoryservice.getAll());
-            model.addAttribute("specailcates", specailCategoryService.getAll());
+            model.addAttribute("specailcates", speculateCategoryService.getAll());
+            result.rejectValue("title",null,  "There is already a product registered with the same name");
+            return "admin/product/create";
+        }   if(result.hasErrors()) {
+            model.addAttribute("categories", categoryservice.getAll());
+            model.addAttribute("specailcates", speculateCategoryService.getAll());
             return "admin/product/create";
         }
 

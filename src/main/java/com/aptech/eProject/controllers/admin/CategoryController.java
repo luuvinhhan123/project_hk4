@@ -34,7 +34,7 @@ public class CategoryController {
 
     @GetMapping("/edit/{id}")
     public ModelAndView edit(ModelAndView model, @PathVariable String id) {
-        model.addObject("category", categoryService.detail(Integer.parseInt(id)));
+        model.addObject("category", categoryService.findById(Integer.parseInt(id)));
         model.setViewName("admin/category/edit");
         return model;
     }
@@ -53,18 +53,11 @@ public class CategoryController {
             return "admin/category/edit";
         }
 
-        Category existed = categoryService.findCategoryByName(category.getName());
-        if(existed != null && existed.getId() != detail.getId()) {
-            model.addAttribute("category", category);
-            return "admin/category/edit";
-        }
-
         detail.setId(category.getId());
         detail.setName(category.getName());
         categoryService.update(detail);
         return "redirect:/admin/categories";
-        }
-
+    }
 
     @GetMapping("/create")
     public ModelAndView create(ModelAndView model) {

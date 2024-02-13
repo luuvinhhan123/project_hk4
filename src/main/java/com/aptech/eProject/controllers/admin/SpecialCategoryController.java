@@ -1,7 +1,7 @@
 package com.aptech.eProject.controllers.admin;
 
 import com.aptech.eProject.models.SpecialCategory;
-import com.aptech.eProject.services.SpecailCategoryService;
+import com.aptech.eProject.services.SpeculateCategoryService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,69 +14,63 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/admin/specailcategories")
-public class SpecailCateController {
+@RequestMapping("/admin/categorisations")
+public class SpecialCategoryController {
     @Autowired
-    SpecailCategoryService specailCategoryService;
+    SpeculateCategoryService speculateCategoryService;
 
     @GetMapping("")
     public ModelAndView index(ModelAndView model) {
-        model.addObject("specailcates", specailCategoryService.getAll());
-        model.setViewName("admin/specailcate/index");
+        model.addObject("speculates", speculateCategoryService.getAll());
+        model.setViewName("admin/speculate/index");
         return model;
     }
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable String id) {
-        specailCategoryService.delete(Integer.parseInt(id));
-        return "redirect:/admin/specailcategories";
+        speculateCategoryService.delete(Integer.parseInt(id));
+        return "redirect:/admin/categorisations";
     }
 
     @GetMapping("/edit/{id}")
     public ModelAndView edit(ModelAndView model, @PathVariable String id) {
-        model.addObject("specailcate", specailCategoryService.detail(Integer.parseInt(id)));
-        model.setViewName("admin/specailcate/edit");
+        model.addObject("speculates", speculateCategoryService.findById(Integer.parseInt(id)));
+        model.setViewName("admin/speculate/edit");
         return model;
     }
 
     @PostMapping("/edit/{id}")
     public String update(Model model, @PathVariable String id, @Valid SpecialCategory specialCategory, BindingResult result) {
-        SpecialCategory detail =  specailCategoryService.detail(Integer.parseInt(id));
-        SpecialCategory existingCategory = specailCategoryService.findCategoryByName(specialCategory.getName());
+        SpecialCategory detail =  speculateCategoryService.detail(Integer.parseInt(id));
+        SpecialCategory existingCategory = speculateCategoryService.findCategoryByName(specialCategory.getName());
         if (existingCategory != null && existingCategory.getName() != null
                 && !existingCategory.getName().isEmpty()) {
             result.rejectValue("name", null,
                     "There is already an account registered with the same name");
         }
         if (result.hasErrors() || detail == null ) {
-            model.addAttribute("specialCategory", specialCategory);
-            return "admin/specailcate/edit";
-        }
-
-        SpecialCategory existed = specailCategoryService.findCategoryByName(specialCategory.getName());
-        if(existed != null && existed.getId() != detail.getId()) {
-            model.addAttribute("specialCategory", specialCategory);
-            return "admin/specailcate/edit";
+            model.addAttribute("speculates", specialCategory);
+            return "admin/speculate/edit";
         }
 
         detail.setId(specialCategory.getId());
         detail.setName(specialCategory.getName());
-        specailCategoryService.update(detail);
-        return "redirect:/admin/specailcategories";
+        speculateCategoryService.update(detail);
+        return "redirect:/admin/categorisations";
     }
 
 
     @GetMapping("/create")
     public ModelAndView create(ModelAndView model) {
-        model.addObject("specailcate", new SpecialCategory());
-        model.setViewName("admin/specailcate/create");
+        model.addObject("speculates", new SpecialCategory());
+        model.setViewName("admin/speculate/create");
         return model;
     }
 
     @PostMapping("/create")
-    public String createSpecailCategory(Model model, @Valid SpecialCategory specailcate, BindingResult result) {
+    public String createSpecailCategory(Model model, @Valid SpecialCategory specialCategory, BindingResult result) {
 
-        SpecialCategory existingCategory = specailCategoryService.findCategoryByName(specailcate.getName());
+        SpecialCategory existingCategory = speculateCategoryService.findCategoryByName(specialCategory.getName());
 
         if (existingCategory != null && existingCategory.getName() != null
                 && !existingCategory.getName().isEmpty()) {
@@ -84,13 +78,13 @@ public class SpecailCateController {
                     "There is already an account registered with the same name");
         }
         if(result.hasErrors()) {
-            model.addAttribute("specailcate",specailcate);
-            return"admin/specailcate/create";
+            model.addAttribute("speculates",specialCategory);
+            return"admin/speculate/create";
         }
 
-        specailCategoryService.create(specailcate);
+        speculateCategoryService.create(specialCategory);
 
-        return "redirect:/admin/specailcategories";
+        return "redirect:/admin/categorisations";
     }
 }
 

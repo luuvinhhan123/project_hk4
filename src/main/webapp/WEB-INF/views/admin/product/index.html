@@ -65,7 +65,7 @@
                                  "https://media.geeksforgeeks.org/wp-content/uploads/20221210182148/Untitled-design-(29).png"
                          class="nav-img"
                          alt="dashboard">
-                    <h4><a th:href="@{/admin/dashboard}" style="color: white" class="buttonredirect">Dashboard</a></h4>
+                    <a href="/admin/dashboard" style="color: white" class="buttonredirect"><h4> Dashboard</h4></a>
                 </div>
 
                 <div class="option2 nav-option">
@@ -81,7 +81,7 @@
                                  "https://media.geeksforgeeks.org/wp-content/uploads/20221210183323/10.png"
                          class="nav-img"
                          alt="blog">
-                    <h4><a th:href="@{/admin/specailcategories}" class="buttonredirect">SpecailCate</a></h4>
+                    <h4><a th:href="@{/admin/categorisations}" class="buttonredirect">SpecailCate</a></h4>
                 </div>
 
 
@@ -128,52 +128,6 @@
             </div>
         </div>
 
-        <div class="box-container">
-
-            <div class="box box1">
-                <div class="text">
-                    <h2 class="topic-heading">60.5k</h2>
-                    <h2 class="topic">Article Views</h2>
-                </div>
-
-                <img src=
-                             "https://media.geeksforgeeks.org/wp-content/uploads/20221210184645/Untitled-design-(31).png"
-                     alt="Views">
-            </div>
-
-            <div class="box box2">
-                <div class="text">
-                    <h2 class="topic-heading">150</h2>
-                    <h2 class="topic">Likes</h2>
-                </div>
-
-                <img src=
-                             "https://media.geeksforgeeks.org/wp-content/uploads/20221210185030/14.png"
-                     alt="likes">
-            </div>
-
-            <div class="box box3">
-                <div class="text">
-                    <h2 class="topic-heading">320</h2>
-                    <h2 class="topic">Comments</h2>
-                </div>
-
-                <img src=
-                             "https://media.geeksforgeeks.org/wp-content/uploads/20221210184645/Untitled-design-(32).png"
-                     alt="comments">
-            </div>
-
-            <div class="box box4">
-                <div class="text">
-                    <h2 class="topic-heading">70</h2>
-                    <h2 class="topic">Published</h2>
-                </div>
-
-                <img src=
-                             "https://media.geeksforgeeks.org/wp-content/uploads/20221210185029/13.png" alt="published">
-            </div>
-        </div>
-
         <div class="report-container">
             <div class="report-header">
                 <h1 class="recent-Articles">Product List</h1>
@@ -182,7 +136,7 @@
 
             <div class="container" th:each="product : ${products}">
                 <div class="item">ProductId</div>
-                <div class="item idproduct" th:text="${product.id}"></div>
+                <div class="item" th:text="${product.id}"></div>
                 <div class="item">Title</div>
                 <div class="item" th:text="${product.title}"></div>
                 <div class="item">Brand</div>
@@ -195,6 +149,8 @@
                 <div class="item" th:text="${product.specialPrice}"></div>
                 <div class="item">Cate Name</div>
                 <div class="item" th:text="${product.category.name}"></div>
+                <div class="item">Specail Name</div>
+                <div class="item" th:text="${product.specialCategory.name}"></div>
                 <div class="item">Description</div>
                 <div class="item" th:text="${product.description}"></div>
                 <div class="item">Action</div>
@@ -215,7 +171,7 @@
 <style>
     .container {
         display: inline-grid;
-        grid-template-columns: 200px 880px;
+        grid-template-columns: 250px 250px;
         padding: 10px;
         border-radius: 10px;
     }
@@ -509,7 +465,7 @@
     .report-container {
         min-height: 300px;
         max-width: 1200px;
-        margin: 70px auto 0px auto;
+        margin: 10px auto 0px auto;
         background-color: #ffffff;
         border-radius: 30px;
         box-shadow: 3px 3px 10px rgb(188, 188, 188);

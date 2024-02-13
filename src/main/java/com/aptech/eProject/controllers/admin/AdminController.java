@@ -2,6 +2,7 @@ package com.aptech.eProject.controllers.admin;
 
 import com.aptech.eProject.models.Role;
 import com.aptech.eProject.models.User;
+import com.aptech.eProject.services.ProductService;
 import com.aptech.eProject.services.RoleService;
 import com.aptech.eProject.services.UserService;
 import jakarta.validation.Valid;
@@ -27,9 +28,14 @@ public class AdminController {
     @Autowired
     RoleService roleService;
 
+    @Autowired
+    ProductService productService;
+
     @GetMapping("")
     public ModelAndView index(ModelAndView model) {
+        long productCount = productService.countProducts();
         model.addObject("users", userService.getAll());
+        model.addObject("productCount", productCount);
         model.setViewName("admin/usermanager/index");
         return model;
     }

@@ -1,8 +1,6 @@
 package com.aptech.eProject.services;
 
-import com.aptech.eProject.models.Category;
 import com.aptech.eProject.models.SpecialCategory;
-import com.aptech.eProject.repositories.CategoryRepository;
 import com.aptech.eProject.repositories.SpecailCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class SpecailCategoryService {
+public class SpeculateCategoryService {
     @Autowired
     SpecailCategoryRepository specailCategoryRepository;
 
@@ -41,6 +39,10 @@ public class SpecailCategoryService {
     }
 
     public SpecialCategory detail(Integer id) {
+        return specailCategoryRepository.findById(id).get();
+    }
+
+    public SpecialCategory findById(int id) {
         return specailCategoryRepository.findById(id).get();
     }
 

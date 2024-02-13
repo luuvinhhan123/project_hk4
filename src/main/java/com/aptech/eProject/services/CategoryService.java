@@ -1,6 +1,7 @@
 package com.aptech.eProject.services;
 
 import com.aptech.eProject.models.Category;
+import com.aptech.eProject.models.Product;
 import com.aptech.eProject.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,9 @@ public class CategoryService {
         }
         return false;
     }
+    public long countCategories(){
+        return categoryRepository.count();
+    }
 
     public Category create(Category category) {
         try {
@@ -39,6 +43,10 @@ public class CategoryService {
     }
 
     public Category detail(Integer id) {
+        return categoryRepository.findById(id).get();
+    }
+
+    public Category findById(int id) {
         return categoryRepository.findById(id).get();
     }
 

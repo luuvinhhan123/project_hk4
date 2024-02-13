@@ -23,6 +23,10 @@ public class ProductService {
     public Product findById(int id) {
         return productRepository.findById(id).get();
     }
+
+    public long countProducts() {
+        return productRepository.count(); // Sử dụng phương thức count() của JpaRepository để đếm tổng số lượng sản phẩm
+    }
     public Product update(Integer id, Product product) {
         try {
             Product exited = findById(id);

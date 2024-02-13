@@ -66,6 +66,10 @@ public class UserService {
 		userRepository.save(user);
 	}
 
+	public long countUser() {
+		return userRepository.count();
+	}
+
 	public AuthResponse login(LoginRequest loginReq) throws Exception {
 		try {
 			Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginReq.getEmail(), loginReq.getPassword()));
