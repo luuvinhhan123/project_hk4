@@ -42,7 +42,7 @@ public class SpecialCategoryController {
     @PostMapping("/edit/{id}")
     public String update(Model model, @PathVariable String id, @Valid SpecialCategory specialCategory, BindingResult result) {
         SpecialCategory detail =  speculateCategoryService.detail(Integer.parseInt(id));
-        SpecialCategory existingCategory = speculateCategoryService.findCategoryByName(specialCategory.getName());
+        SpecialCategory existingCategory = speculateCategoryService.finSpecialCategory(specialCategory.getName());
         if (existingCategory != null && existingCategory.getName() != null
                 && !existingCategory.getName().isEmpty()) {
             result.rejectValue("name", null,
@@ -50,6 +50,8 @@ public class SpecialCategoryController {
         }
         if (result.hasErrors() || detail == null ) {
             model.addAttribute("speculates", specialCategory);
+            result.rejectValue("name", null,
+                    "There is already an account registered with the same name");
             return "admin/speculate/edit";
         }
 
@@ -70,7 +72,7 @@ public class SpecialCategoryController {
     @PostMapping("/create")
     public String createSpecailCategory(Model model, @Valid SpecialCategory specialCategory, BindingResult result) {
 
-        SpecialCategory existingCategory = speculateCategoryService.findCategoryByName(specialCategory.getName());
+        SpecialCategory existingCategory = speculateCategoryService.finSpecialCategory(specialCategory.getName());
 
         if (existingCategory != null && existingCategory.getName() != null
                 && !existingCategory.getName().isEmpty()) {
@@ -79,6 +81,8 @@ public class SpecialCategoryController {
         }
         if(result.hasErrors()) {
             model.addAttribute("speculates",specialCategory);
+            result.rejectValue("name", null,
+                    "Cannot delete specailcategory");
             return"admin/speculate/create";
         }
 

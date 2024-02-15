@@ -16,7 +16,7 @@ public class SpeculateCategoryService {
         return specailCategoryRepository.findAll();
     }
 
-    public SpecialCategory findCategoryByName(String name) {
+    public SpecialCategory finSpecialCategory(String name) {
         return specailCategoryRepository.findByName(name);
     }
 
