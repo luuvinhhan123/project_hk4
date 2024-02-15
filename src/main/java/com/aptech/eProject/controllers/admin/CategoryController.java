@@ -50,6 +50,8 @@ public class CategoryController {
         }
         if (result.hasErrors() || detail == null ) {
             model.addAttribute("category", category);
+            result.rejectValue("name", null,
+                    "Cannot not update try again");
             return "admin/category/edit";
         }
 

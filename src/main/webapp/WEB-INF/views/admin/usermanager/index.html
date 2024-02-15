@@ -19,7 +19,6 @@
 
 <!-- for header part -->
 <header>
-    <h1>Total Number of Products: <span th:text="${productCount}"></span></h1>
     <div class="logosec">
         <div class="logo">GeeksForGeeks</div>
         <img src=
@@ -130,7 +129,8 @@
         <div class="report-container">
             <div class="report-header">
                 <h1 class="recent-Articles">User List</h1>
-                <button class="view">Create new</button>
+                <button class="view"><a style="text-decoration: none;color: white"
+                                        th:href="@{/admin/create}">Create new</a></button>
             </div>
 
             <table class="items">

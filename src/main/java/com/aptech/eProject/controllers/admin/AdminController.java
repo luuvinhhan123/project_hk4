@@ -1,5 +1,6 @@
 package com.aptech.eProject.controllers.admin;
 
+import com.aptech.eProject.models.Category;
 import com.aptech.eProject.models.Role;
 import com.aptech.eProject.models.User;
 import com.aptech.eProject.services.ProductService;
@@ -71,10 +72,40 @@ public class AdminController {
         return "redirect:/admin";
     }
 
+    @GetMapping("/create")
+    public ModelAndView create(ModelAndView model) {
+        model.addObject("users", new User());
+        model.addObject("role", roleService.getAll());
+        model.setViewName("admin/usermanager/create");
+        return model;
+    }
+
+    @PostMapping("/create")
+    public String createCategory(Model model, @Valid User user, BindingResult result) {
+
+        User existingEmail = userService.findUserByEmail(user.getEmail());
+        model.addAttribute("users", new User());
+        model.addAttribute("roles", roleService.getAll());
+        if (existingEmail != null && existingEmail.getEmail() != null
+                && !existingEmail.getEmail().isEmpty()) {
+            result.rejectValue("email", null,
+                    "There is already an email registered with the same name");
+        }
+        if(result.hasErrors()) {
+            model.addAttribute("user",user);
+            return"admin/usermanager/create";
+        }
+
+        userService.createUser(user);
+
+        return "redirect:/admin";
+    }
+
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable String id) {
         userService.delete(Integer.parseInt(id));
         return "redirect:/admin";
     }
+
 }
 
