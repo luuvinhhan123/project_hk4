@@ -11,11 +11,11 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Collections;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin/products")
@@ -35,6 +35,28 @@ public class ProductController {
         model.setViewName("admin/product/index");
         return model;
     }
+
+    @GetMapping("/search")
+    public String search(Model model, @RequestParam(value = "title", required = false) String title) {
+        if (title == null || title.isEmpty()) {
+            // Nếu không nhập gì, lấy tất cả sản phẩm
+            List<Product> allProducts = productService.getAll();
+            model.addAttribute("products", allProducts);
+        } else {
+            // Nếu nhập từ khóa tìm kiếm, tìm sản phẩm theo tiêu đề
+            Product searchProduct = productService.findProductByTitle(title);
+            if (searchProduct != null) {
+                // Nếu sản phẩm được tìm thấy, thêm nó vào model để hiển thị trên trang
+                model.addAttribute("products", Collections.singletonList(searchProduct));
+            } else {
+                // Nếu không tìm thấy sản phẩm, thông báo cho người dùng
+                model.addAttribute("message", "No product found with the title: " + title);
+            }
+        }
+        // Trả về trang hiển thị danh sách sản phẩm
+        return "admin/product/index";
+    }
+
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable String id) {

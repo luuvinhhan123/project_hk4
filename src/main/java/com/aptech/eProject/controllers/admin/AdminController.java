@@ -1,6 +1,7 @@
 package com.aptech.eProject.controllers.admin;
 
 import com.aptech.eProject.models.Category;
+import com.aptech.eProject.models.Product;
 import com.aptech.eProject.models.Role;
 import com.aptech.eProject.models.User;
 import com.aptech.eProject.services.ProductService;
@@ -11,13 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -39,6 +38,27 @@ public class AdminController {
         model.addObject("productCount", productCount);
         model.setViewName("admin/usermanager/index");
         return model;
+    }
+
+    @GetMapping("/search")
+    public String search(Model model, @RequestParam(value = "email", required = false) String email) {
+        if (email == null || email.isEmpty()) {
+            // Nếu không nhập gì, lấy tất cả sản phẩm
+            List<User> allUsers = userService.getAll();
+            model.addAttribute("users", allUsers);
+        } else {
+            // Nếu nhập từ khóa tìm kiếm, tìm sản phẩm theo tiêu đề
+            User searchEmail = userService.findUserByEmail(email);
+            if (searchEmail != null) {
+                // Nếu sản phẩm được tìm thấy, thêm nó vào model để hiển thị trên trang
+                model.addAttribute("users", Collections.singletonList(searchEmail));
+            } else {
+                // Nếu không tìm thấy sản phẩm, thông báo cho người dùng
+                model.addAttribute("message", "No user found with the email: " + email);
+            }
+        }
+        // Trả về trang hiển thị danh sách sản phẩm
+        return "admin/usermanager/index";
     }
 
     @GetMapping("/edit/{id}")
