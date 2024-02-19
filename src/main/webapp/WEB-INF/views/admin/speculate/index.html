@@ -29,6 +29,14 @@
              alt="menu-icon">
     </div>
 
+    <div class="searchbar">
+        <form action="/admin/categorisations/search" method="get" >
+            <input type="text" style="border:none;background: none"  name="name" placeholder="Enter specailcate name">
+            <button type="submit" style="background: #2196F3;border-radius: 5px; color: white">Search
+            </button>
+        </form>
+    </div>
+
     <div class="message">
         <div class="circle"></div>
         <img src=
@@ -666,6 +674,46 @@
         }
     }
 
+</style>
+<style>
+    .searchbar {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .searchbar form {
+        display: flex;
+        align-items: center;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        overflow: hidden;
+    }
+
+    .searchbar input[type="text"] {
+        flex: 1;
+        padding: 10px;
+        border: none;
+        outline: none;
+    }
+
+    .searchbar button {
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+        padding: 10px;
+        transition: background-color 0.3s ease;
+    }
+
+    .searchbar button:hover {
+        background-color: #f0f0f0;
+    }
+
+    .searchbar img {
+        width: 20px;
+        height: 20px;
+        margin-right: 5px;
+    }
 </style>
 <script>
     let menuicn = document.querySelector(".menuicn");

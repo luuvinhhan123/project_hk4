@@ -1,5 +1,6 @@
 package com.aptech.eProject.services;
 
+import com.aptech.eProject.models.Category;
 import com.aptech.eProject.models.SpecialCategory;
 import com.aptech.eProject.repositories.SpecailCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,10 @@ public class SpeculateCategoryService {
 
     public SpecialCategory findById(int id) {
         return specailCategoryRepository.findById(id).get();
+    }
+
+    public List<SpecialCategory> searchByCategory(String name) {
+        return specailCategoryRepository.findBySpecailName(name);
     }
 
     public boolean delete(Integer id) {

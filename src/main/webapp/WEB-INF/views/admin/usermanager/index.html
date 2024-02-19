@@ -29,10 +29,9 @@
     </div>
 
     <div class="searchbar">
-        <form action="/admin/search" method="get" >
-            <input type="text" style="border:none;background: none"  name="email" placeholder="Enter Email">
-            <button type="submit" style="background: #2196F3;border-radius: 5px; color: white">Search
-            </button>
+        <form action="/admin/searchbyemail" method="get">
+            <input type="text" style="border:none;background: none"  name="email" placeholder="Enter email">
+            <button type="submit" style="background: #2196F3;border-radius: 5px; color: white">Search</button>
         </form>
     </div>
 
@@ -134,7 +133,6 @@
             <table class="items">
                 <thead>
                 <tr>
-                    <th><h3>UserId</h3></th>
                     <th><h3>FirstName</h3></th>
                     <th><h3>LastName</h3></th>
                     <th><h3>Email</h3></th>
@@ -144,7 +142,6 @@
 
                 <tbody >
                 <tr style="margin: 10px" th:each="user : ${users}">
-                    <th th:text="${user.id}"></th>
                     <th th:text="${user.firstname}"></th>
                     <th th:text="${user.lastname}"></th>
                     <th th:text="${user.email}"></th>

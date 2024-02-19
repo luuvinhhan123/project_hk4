@@ -1,6 +1,8 @@
 package com.aptech.eProject.controllers.admin;
 
 import com.aptech.eProject.models.Category;
+import com.aptech.eProject.models.EOrderStatus;
+import com.aptech.eProject.models.Order;
 import com.aptech.eProject.models.Product;
 import com.aptech.eProject.services.CategoryService;
 import jakarta.validation.Valid;
@@ -27,31 +29,24 @@ public class CategoryController {
         return model;
     }
 
-    @GetMapping("/search")
-    public String search(Model model, @RequestParam(value = "name", required = false) String name) {
-        if (name == null || name.isEmpty()) {
-            // Nếu không nhập gì, lấy tất cả sản phẩm
-            List<Category> allCatepgories = categoryService.getAll();
-            model.addAttribute("categories", allCatepgories);
-        } else {
-            // Nếu nhập từ khóa tìm kiếm, tìm sản phẩm theo tiêu đề
-            Category searchCategory = categoryService.findCategoryByName(name);
-            if (searchCategory != null) {
-                // Nếu sản phẩm được tìm thấy, thêm nó vào model để hiển thị trên trang
-                model.addAttribute("categories", Collections.singletonList(searchCategory));
-            } else {
-                // Nếu không tìm thấy sản phẩm, thông báo cho người dùng
-                model.addAttribute("message", "No category found with the name: " + name);
-            }
-        }
-        // Trả về trang hiển thị danh sách sản phẩm
-        return "admin/category/index";
-    }
-
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable String id) {
         categoryService.delete(Integer.parseInt(id));
         return "redirect:/admin/categories";
+    }
+
+    @GetMapping("/search")
+    public String searchByOrderStatus(@RequestParam(value = "name", required = false) String name, Model model) {
+        List<Category> categories;
+        if (name == null|| name.isEmpty())  {
+            // Nếu không nhập gì, lấy tất cả đơn hàng
+            categories = categoryService.getAll();
+        } else {
+            // Nếu nhập từ khóa tìm kiếm, tìm đơn hàng theo trạng thái
+            categories = categoryService.searchByCategory(name);
+        }
+        model.addAttribute("categories", categories);
+        return "admin/category/index"; // Assuming the view name is "admin/order/index"
     }
 
     @GetMapping("/edit/{id}")

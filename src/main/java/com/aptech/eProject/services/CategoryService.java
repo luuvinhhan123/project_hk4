@@ -1,6 +1,8 @@
 package com.aptech.eProject.services;
 
 import com.aptech.eProject.models.Category;
+import com.aptech.eProject.models.EOrderStatus;
+import com.aptech.eProject.models.Order;
 import com.aptech.eProject.models.Product;
 import com.aptech.eProject.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +50,10 @@ public class CategoryService {
 
     public Category findById(int id) {
         return categoryRepository.findById(id).get();
+    }
+
+    public List<Category> searchByCategory(String name) {
+        return categoryRepository.findByCategoryName(name);
     }
 
     public boolean delete(Integer categoryId) {

@@ -49,6 +49,7 @@ public class UserService {
 		}
 		return user;
 	}
+
 	public void createUser(User user) {
 
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -69,14 +70,13 @@ public class UserService {
 	public long countUser() {
 		return userRepository.count();
 	}
-
 	public AuthResponse login(LoginRequest loginReq) throws Exception {
 		try {
 			Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginReq.getEmail(), loginReq.getPassword()));
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 
 			String email = authentication.getName();
-			User user = userRepository.findByEmail(email);
+			User user = (User) userRepository.findByEmail(email);
 
 			return AuthResponse.builder().token(jwtUtil.generateToken(user)).build();
 
@@ -87,5 +87,9 @@ public class UserService {
 
 	public void delete(Integer userId) {
 		userRepository.deleteById(userId);
+	}
+
+	public List<User> findByPayment(String email) {
+		return userRepository.searchByEmail(email);
 	}
 }

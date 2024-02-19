@@ -26,7 +26,7 @@ public class AuthorUserDetailService implements UserDetailsService {
 	 */
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		User user = userRepository.findByEmail(email);
+		User user = (User) userRepository.findByEmail(email);
 		if (user != null) {
 			return new org.springframework.security.core.userdetails.User(user.getEmail(),
 					user.getPassword(), Collections.singleton(new SimpleGrantedAuthority(user.getRole().toString())));

@@ -1,5 +1,6 @@
 package com.aptech.eProject.controllers.admin;
 
+import com.aptech.eProject.models.Category;
 import com.aptech.eProject.models.SpecialCategory;
 import com.aptech.eProject.services.SpeculateCategoryService;
 import jakarta.validation.Valid;
@@ -7,11 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin/categorisations")
@@ -30,6 +30,20 @@ public class SpecialCategoryController {
     public String delete(@PathVariable String id) {
         speculateCategoryService.delete(Integer.parseInt(id));
         return "redirect:/admin/categorisations";
+    }
+
+    @GetMapping("/search")
+    public String searchByOrderStatus(@RequestParam(value = "name", required = false) String name, Model model) {
+        List<SpecialCategory> speculates;
+        if (name == null|| name.isEmpty())  {
+            // Nếu không nhập gì, lấy tất cả đơn hàng
+            speculates = speculateCategoryService.getAll();
+        } else {
+            // Nếu nhập từ khóa tìm kiếm, tìm đơn hàng theo trạng thái
+            speculates = speculateCategoryService.searchByCategory(name);
+        }
+        model.addAttribute("speculates", speculates);
+        return "admin/speculate/index"; // Assuming the view name is "admin/order/index"
     }
 
     @GetMapping("/edit/{id}")

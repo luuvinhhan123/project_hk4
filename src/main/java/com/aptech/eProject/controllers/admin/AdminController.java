@@ -1,14 +1,15 @@
 package com.aptech.eProject.controllers.admin;
 
-import com.aptech.eProject.models.Category;
-import com.aptech.eProject.models.Product;
-import com.aptech.eProject.models.Role;
-import com.aptech.eProject.models.User;
+import com.aptech.eProject.models.*;
+import com.aptech.eProject.repositories.UserRepository;
+import com.aptech.eProject.services.OrderService;
 import com.aptech.eProject.services.ProductService;
 import com.aptech.eProject.services.RoleService;
 import com.aptech.eProject.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,6 +32,9 @@ public class AdminController {
     @Autowired
     ProductService productService;
 
+    @Autowired
+    OrderService orderService;
+
     @GetMapping("")
     public ModelAndView index(ModelAndView model) {
         long productCount = productService.countProducts();
@@ -40,25 +44,18 @@ public class AdminController {
         return model;
     }
 
-    @GetMapping("/search")
-    public String search(Model model, @RequestParam(value = "email", required = false) String email) {
-        if (email == null || email.isEmpty()) {
-            // Nếu không nhập gì, lấy tất cả sản phẩm
-            List<User> allUsers = userService.getAll();
-            model.addAttribute("users", allUsers);
+    @GetMapping("/searchbyemail")
+    public String searchOrdersByPaymentMethod(@RequestParam(value = "email", required = false) String email, Model model) {
+        List<User> users ;
+        if (email== null || email.isEmpty()) {
+            // Nếu không nhập gì, lấy tất cả đơn hàng
+            users = userService.getAll();
         } else {
-            // Nếu nhập từ khóa tìm kiếm, tìm sản phẩm theo tiêu đề
-            User searchEmail = userService.findUserByEmail(email);
-            if (searchEmail != null) {
-                // Nếu sản phẩm được tìm thấy, thêm nó vào model để hiển thị trên trang
-                model.addAttribute("users", Collections.singletonList(searchEmail));
-            } else {
-                // Nếu không tìm thấy sản phẩm, thông báo cho người dùng
-                model.addAttribute("message", "No user found with the email: " + email);
-            }
+            // Nếu nhập từ khóa tìm kiếm, tìm đơn hàng theo trạng thái
+            users = userService.findByPayment(email);
         }
-        // Trả về trang hiển thị danh sách sản phẩm
-        return "admin/usermanager/index";
+        model.addAttribute("users", users);
+        return "admin/usermanager/index"; // Assuming the view name is "admin/order/index"
     }
 
     @GetMapping("/edit/{id}")
@@ -122,10 +119,12 @@ public class AdminController {
     }
 
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable String id) {
+    public String delete(@PathVariable String id,BindingResult result) {
+        if (result.hasErrors()) {
+            return "admin/usermanager/index";
+        }
         userService.delete(Integer.parseInt(id));
         return "redirect:/admin";
     }
-
 }
 
