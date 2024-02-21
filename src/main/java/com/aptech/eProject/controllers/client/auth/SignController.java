@@ -6,6 +6,7 @@ import com.aptech.eProject.services.RoleService;
 import com.aptech.eProject.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,9 @@ import java.util.*;
 @RequestMapping("/signup-signin")
 public class SignController {
 	@Autowired
+	private JavaMailSender javaMailSender;
+
+	@Autowired
 	UserService userService;
 
 	@Autowired
@@ -31,7 +35,7 @@ public class SignController {
 		return model;
 	}
 
-	@PostMapping("")
+	@PostMapping("/login")
 	public String login(ModelAndView model, @Valid User user, BindingResult result) {
 		User existingUser = userService.findUserByEmail(user.getEmail());
 		if (existingUser == null  || !existingUser.getPassword().equals(user.getPassword())){

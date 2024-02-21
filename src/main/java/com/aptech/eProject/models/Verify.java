@@ -1,6 +1,5 @@
 package com.aptech.eProject.models;
 
-import com.aptech.eProject.types.RoleType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;

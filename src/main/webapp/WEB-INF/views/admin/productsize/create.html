@@ -9,10 +9,6 @@
           content="width=device-width,
 				initial-scale=1.0">
     <title>FashionFoward</title>
-    <link rel="stylesheet"
-          href="style.css">
-    <link rel="stylesheet"
-          href="responsive.css">
 </head>
 
 <body>
@@ -27,14 +23,6 @@
              class="icn menuicn"
              id="menuicn"
              alt="menu-icon">
-    </div>
-
-    <div class="searchbar">
-        <form action="/admin/products/search" method="get" >
-            <input type="text" style="border:none;background: none" name="title" placeholder="Enter product title">
-            <button type="submit" style="background: #2196F3;border-radius: 5px; color: white">Search
-            </button>
-        </form>
     </div>
 
     <div class="message">
@@ -62,7 +50,7 @@
                                  "https://media.geeksforgeeks.org/wp-content/uploads/20221210182148/Untitled-design-(29).png"
                          class="nav-img"
                          alt="dashboard">
-                    <a href="/admin/dashboard" style="color: white" class="buttonredirect"><h4> Dashboard</h4></a>
+                    <h4><a th:href="@{/admin/dashboard}" style="color: white" class="buttonredirect">Dashboard</a></h4>
                 </div>
 
                 <div class="option2 nav-option">
@@ -127,39 +115,33 @@
     </div>
     <div class="main">
 
+        <div class="searchbar2">
+            <input type="text"
+                   name=""
+                   id=""
+                   placeholder="Search">
+            <div class="searchbtn">
+                <img src=
+                             "https://media.geeksforgeeks.org/wp-content/uploads/20221210180758/Untitled-design-(28).png"
+                     class="icn srchicn"
+                     alt="search-button">
+            </div>
+        </div>
+
         <div class="report-container">
             <div class="report-header">
-                <h1 class="recent-Articles">Product List</h1>
-                <button class="view"><a style="text-decoration: none;color: white" th:href="@{/admin/products/create}">Create new</a></button>
+                <h1 class="recent-Articles">Create Size</h1>
+                <button class="view"><a style="text-decoration: none;color: white"  th:href="@{/admin/productsize}">View All</a></button>
             </div>
-
-            <div class="container" th:each="product : ${products}">
-                <div class="item">ProductId</div>
-                <div class="item" th:text="${product.id}"></div>
-                <div class="item">Title</div>
-                <div class="item" th:text="${product.title}"></div>
-                <div class="item">Brand</div>
-                <div class="item" th:text="${product.brand}"></div>
-                <div class="item">Quantity</div>
-                <div class="item" th:text="${product.quantity}"></div>
-                <div class="item">Rate</div>
-                <div class="item" th:text="${product.rating}"></div>
-                <div class="item">Special Price</div>
-                <div class="item" th:text="${product.specialPrice}"></div>
-                <div class="item">Cate Name</div>
-                <div class="item" th:text="${product.category.name}"></div>
-                <div class="item">Specail Name</div>
-                <div class="item" th:text="${product.specialCategory.name}"></div>
-                <div class="item">Description</div>
-                <div class="item" th:text="${product.description}"></div>
-                <div class="item">Action</div>
-                <div class="item">
-                    <a class="buttonedit" th:href="@{'/admin/products/edit/' + ${product.id}}">Edit</a>
-                    &nbsp;&nbsp;&nbsp;
-                    <a class="buttondelete" th:href="@{'/admin/products/delete/' + ${product.id}}">Delete</a>
-                </div>
+            <div class="formstyle">
+                <form role="form" th:action="@{/admin/productsize/create}" th:object="${productsize}" method="post">
+                    <div th:errors="*{name}" style="color: red" th:if="${#fields.hasErrors('name')}"></div>
+                    <label>CateName</label>
+                    <input type="text" class="inputstyle" th:field="*{name}" placeholder="not null" required>
+                    <input type="text" class="inputstyle" th:field="*{status}" placeholder="not null" required>
+                    <input type="submit" class="inputstylesubmit" value="Submit">
+                </form>
             </div>
-
         </div>
     </div>
 </div>
@@ -167,24 +149,6 @@
 
 </body>
 </html>
-<style>
-    .container {
-        display: inline-grid;
-        grid-template-columns: 250px 250px;
-        padding: 10px;
-        border-radius: 10px;
-    }
-    .item {
-        border-radius: 10px;
-        background-color: #80cbc4;
-        border: 1px solid #fff;
-        padding: 20px;
-        font-size: 20px;
-        font-weight: bold;
-        text-align: center;
-    }
-
-</style>
 <style>
     /* Main CSS Here */
 
@@ -235,6 +199,11 @@
         text-decoration: none;
         color: red;
     }
+
+    .error-message{
+        color:red;
+    }
+
     .logo {
         font-size: 27px;
         font-weight: 600;
@@ -271,7 +240,7 @@
     }
 
     .searchbar input {
-        width: 400px;
+        width: 250px;
         height: 42px;
         border-radius: 50px 0 0 50px;
         background-color: var(--background-color3);
@@ -290,6 +259,7 @@
         background-color: var(--secondary-color);
         cursor: pointer;
     }
+
     .message {
         gap: 40px;
         position: relative;
@@ -699,46 +669,31 @@
             width: 180px;
         }
     }
-
-</style>
-<style>
-    .searchbar {
-        display: flex;
-        justify-content: center;
-        margin-top: 20px;
-    }
-
-    .searchbar form {
-        display: flex;
-        align-items: center;
+    .inputstyle{
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
         border: 1px solid #ccc;
-        border-radius: 5px;
-        overflow: hidden;
+        border-radius: 4px;
+        box-sizing: border-box;
     }
 
-    .searchbar input[type="text"] {
-        flex: 1;
-        padding: 10px;
+    .inputstylesubmit{
+        width: 100%;
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
         border: none;
-        outline: none;
-    }
-
-    .searchbar button {
-        border: none;
-        background-color: transparent;
+        border-radius: 4px;
         cursor: pointer;
-        padding: 10px;
-        transition: background-color 0.3s ease;
     }
 
-    .searchbar button:hover {
-        background-color: #f0f0f0;
-    }
-
-    .searchbar img {
-        width: 20px;
-        height: 20px;
-        margin-right: 5px;
+    .formstyle {
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 20px;
     }
 </style>
 <script>

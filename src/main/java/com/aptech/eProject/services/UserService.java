@@ -1,19 +1,13 @@
 package com.aptech.eProject.services;
 
-import com.aptech.eProject.mails.MailUserVerificationCode;
+import com.aptech.eProject.controllers.client.auth.mails.MailUserVerificationCode;
 import com.aptech.eProject.models.Profile;
 import com.aptech.eProject.models.User;
 import com.aptech.eProject.repositories.UserRepository;
-import com.aptech.eProject.requests.auth.LoginRequest;
-import com.aptech.eProject.responses.auth.AuthResponse;
-import com.aptech.eProject.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.List;
 
@@ -29,10 +23,8 @@ public class UserService {
 	private AuthenticationManager authenticationManager;
 
 	@Autowired
-	JwtUtil jwtUtil;
-
-	@Autowired
 	MailUserVerificationCode mailUserVerificationCode;
+
 
 	public List<User> getAll() {
 		return userRepository.findAll();
@@ -70,7 +62,7 @@ public class UserService {
 	public long countUser() {
 		return userRepository.count();
 	}
-	public AuthResponse login(LoginRequest loginReq) throws Exception {
+	/*public AuthResponse login(LoginRequest loginReq) throws Exception {
 		try {
 			Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginReq.getEmail(), loginReq.getPassword()));
 			SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -83,7 +75,7 @@ public class UserService {
 		} catch (Exception e) {
 			throw new Exception("email or password incorrect");
 		}
-	}
+	}*/
 
 	public void delete(Integer userId) {
 		userRepository.deleteById(userId);

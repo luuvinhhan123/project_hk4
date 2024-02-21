@@ -18,7 +18,7 @@ public class Role {
     @Column(name="id")
     private Long id;
 
-    @Column(name="name",nullable=false, unique=true)
+    @Column(name="name",nullable=true, unique=true)
     private String name;
 
     @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)

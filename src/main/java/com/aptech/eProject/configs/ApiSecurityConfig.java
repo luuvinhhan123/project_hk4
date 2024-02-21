@@ -1,6 +1,6 @@
 package com.aptech.eProject.configs;
 
-import com.aptech.eProject.filters.JwtRequestFilter;
+import com.aptech.eProject.types.filters.JwtRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,8 +20,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
-
-import java.lang.reflect.Method;
 
 
 @Configuration
@@ -58,10 +56,9 @@ public class ApiSecurityConfig {
 						.authorizeHttpRequests((request) -> request
 						.requestMatchers("/signup-signin/**").permitAll()
 						.requestMatchers("/signup-signin/login/**").permitAll()
-
 						//user manager
 						.requestMatchers("/admin/**").permitAll()
-
+						.requestMatchers("/admin").permitAll()
 						.anyRequest().authenticated()
 				)
 				.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)

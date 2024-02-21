@@ -1,4 +1,4 @@
-package com.aptech.eProject.responses.auth;
+package com.aptech.eProject.controllers.client.auth.responses.auth;
 
 import lombok.Builder;
 import lombok.Data;

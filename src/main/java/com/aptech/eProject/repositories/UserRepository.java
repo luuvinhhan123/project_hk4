@@ -1,6 +1,5 @@
 package com.aptech.eProject.repositories;
 
-import com.aptech.eProject.models.Order;
 import com.aptech.eProject.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

@@ -6,13 +6,10 @@ import jakarta.persistence.Table;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.*;
-import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @AllArgsConstructor
@@ -22,20 +19,20 @@ import java.util.Set;
 @Table(name = "users")
 @Where(clause = "deleted_at is null")
 public class User extends Model {
-    @Column(name = "firstname", nullable = false)
+    @Column(name = "firstname", nullable = true)
     private String firstname;
 
-    @Column(name = "lastname", nullable = false)
+    @Column(name = "lastname", nullable = true)
     private String lastname;
 
-    @Column(name = "phonenumber", nullable = false)
+    @Column(name = "phonenumber", nullable = true)
     private String phonenumber;
 
     @Email
-    @Column(name = "email", unique = true, nullable = false)
+    @Column(name = "email", unique = true, nullable = true)
     private String email;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "password", nullable = true)
     private String password;
 
     @Column(name = "role", nullable = true)

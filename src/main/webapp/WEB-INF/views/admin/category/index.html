@@ -81,6 +81,22 @@
                     <h4><a th:href="@{/admin/categorisations}" class="buttonredirect">SpecailCate</a></h4>
                 </div>
 
+                <div class="nav-option option5">
+                    <img src=
+                                 "https://media.geeksforgeeks.org/wp-content/uploads/20221210183323/10.png"
+                         class="nav-img"
+                         alt="blog">
+                    <h4><a th:href="@{/admin/productsize}" class="buttonredirect">ProductSize</a></h4>
+                </div>
+
+                <div class="nav-option option5">
+                    <img src=
+                                 "https://media.geeksforgeeks.org/wp-content/uploads/20221210183323/10.png"
+                         class="nav-img"
+                         alt="blog">
+                    <h4><a th:href="@{/admin/productcolor}" class="buttonredirect">ProductColor</a></h4>
+                </div>
+
                 <div class="nav-option option3">
                     <img src=
                                  "https://media.geeksforgeeks.org/wp-content/uploads/20221210183321/6.png"
@@ -133,7 +149,7 @@
             <table class="items">
                 <thead>
                 <tr>
-                    <th><h3>CategoryId</h3></th>
+                   <!-- <th><h3>CategoryId</h3></th>-->
                     <th><h3>CategoryName</h3></th>
                     <th><h3>Action</h3></th>
                 </tr>
@@ -141,7 +157,7 @@
 
                 <tbody>
                 <tr style="margin: 10px" th:each="category : ${categories}">
-                    <th th:text="${category.id}"></th>
+                <!--    <th th:text="${category.id}"></th>-->
                     <th th:text="${category.name}"></th>
                     <th>
                         <a class="buttonedit" th:href="@{'/admin/categories/edit/' + ${category.id}}">Edit</a>

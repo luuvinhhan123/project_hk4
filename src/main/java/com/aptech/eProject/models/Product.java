@@ -32,12 +32,20 @@ public class Product {
     @JoinColumn(name = "special_category_id", referencedColumnName = "id")
     private SpecialCategory specialCategory;
 
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "product_size", referencedColumnName = "id")
+    private ProductSize productsize;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "product_color", referencedColumnName = "id")
+    private ProductColor productcolor;
+
     @Nullable
     private String brand;
 
     @NotNull
     @Size(min = 5, max = 100, message = "Product title must be between 5 and 100 characters length")
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String title;
 
     @NotNull
@@ -82,4 +90,5 @@ public class Product {
     @CollectionTable(name = "product_images", joinColumns = @JoinColumn(name = "product_id"))
     @Column(name = "image_url")
     private List<String> images;
+
 }
