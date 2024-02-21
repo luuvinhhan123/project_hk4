@@ -6,7 +6,9 @@ import com.aptech.eProject.services.RoleService;
 import com.aptech.eProject.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,15 +18,13 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.*;
 
 @Controller
-@RequestMapping("/signup-signin")
+@RequestMapping("/admin/login")
 public class SignController {
+
 	@Autowired
 	UserService userService;
 
-	@Autowired
-	RoleService roleService;
-
-	@GetMapping()
+	@GetMapping("")
 	public ModelAndView register(ModelAndView model) {
 		model.addObject("user", new User());
 		model.setViewName("auth/sign");
@@ -32,24 +32,28 @@ public class SignController {
 	}
 
 	@PostMapping("")
-	public String login(ModelAndView model, @Valid User user, BindingResult result) {
+	public String login(Model model, @Valid User user, BindingResult result) {
+
 		User existingUser = userService.findUserByEmail(user.getEmail());
-		if (existingUser == null  || !existingUser.getPassword().equals(user.getPassword())){
-			result.rejectValue("email", null, "Invalid email or password");
+		if (existingUser == null || !existingUser.getPassword().equals(user.getPassword())||!existingUser.getEmail().equals(user.getEmail())) {
+			result.rejectValue("email", null, "Invalid email");
 			return "auth/sign";
-		}else{
-			result.rejectValue("email", null,
-					"user name not exist");
+		} else {
+			result.rejectValue("password", null, "Email does not exist");
 		}
 
 		if (result.hasErrors()) {
-			model.addObject("user", user);
+			model.addAttribute("user", user);
+			return "admin/usermanager/index";
+		}
+
+		if (result.hasErrors()) {
 			return "auth/sign";
 		}
 		return "admin/usermanager/index";
 	}
 
-	@PostMapping("/register")
+	/*@PostMapping("/register")
 	public String createUser(ModelAndView model, @Valid User user, BindingResult result) {
 
 		User existingUser = userService.findUserByEmail(user.getEmail());
@@ -79,6 +83,6 @@ public class SignController {
 		userService.createUser(user);
 
 		return "auth/sign";
-	}
+	}*/
 }
 

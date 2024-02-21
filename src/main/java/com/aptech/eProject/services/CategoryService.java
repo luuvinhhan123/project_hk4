@@ -1,9 +1,6 @@
 package com.aptech.eProject.services;
 
 import com.aptech.eProject.models.Category;
-import com.aptech.eProject.models.EOrderStatus;
-import com.aptech.eProject.models.Order;
-import com.aptech.eProject.models.Product;
 import com.aptech.eProject.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

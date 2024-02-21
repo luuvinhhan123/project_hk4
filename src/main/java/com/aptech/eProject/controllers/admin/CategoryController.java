@@ -1,9 +1,6 @@
 package com.aptech.eProject.controllers.admin;
 
-import com.aptech.eProject.models.Category;
-import com.aptech.eProject.models.EOrderStatus;
-import com.aptech.eProject.models.Order;
-import com.aptech.eProject.models.Product;
+import com.aptech.eProject.models.*;
 import com.aptech.eProject.services.CategoryService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +10,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -89,7 +85,7 @@ public class CategoryController {
     public String createCategory(Model model, @Valid Category category, BindingResult result) {
 
         Category existingCategory = categoryService.findCategoryByName(category.getName());
-
+        model.addAttribute("users", new User());
         if (existingCategory != null && existingCategory.getName() != null
                 && !existingCategory.getName().isEmpty()) {
             result.rejectValue("name", null,

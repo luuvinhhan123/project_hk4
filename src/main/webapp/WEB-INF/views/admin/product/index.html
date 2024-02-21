@@ -31,7 +31,7 @@
 
     <div class="searchbar">
         <form action="/admin/products/search" method="get" >
-            <input type="text" style="border:none;background: none"  name="title" placeholder="Enter product title">
+            <input type="text" style="border:none;background: none" name="title" placeholder="Enter product title">
             <button type="submit" style="background: #2196F3;border-radius: 5px; color: white">Search
             </button>
         </form>
@@ -81,6 +81,21 @@
                     <h4><a th:href="@{/admin/categorisations}" class="buttonredirect">SpecailCate</a></h4>
                 </div>
 
+                <div class="nav-option option5">
+                    <img src=
+                                 "https://media.geeksforgeeks.org/wp-content/uploads/20221210183323/10.png"
+                         class="nav-img"
+                         alt="blog">
+                    <h4><a th:href="@{/admin/productsize}" class="buttonredirect">ProductSize</a></h4>
+                </div>
+
+                <div class="nav-option option5">
+                    <img src=
+                                 "https://media.geeksforgeeks.org/wp-content/uploads/20221210183323/10.png"
+                         class="nav-img"
+                         alt="blog">
+                    <h4><a th:href="@{/admin/productcolor}" class="buttonredirect">ProductColor</a></h4>
+                </div>
 
                 <div class="nav-option option3">
                     <img src=
@@ -119,24 +134,20 @@
             </div>
 
             <div class="container" th:each="product : ${products}">
-                <div class="item">ProductId</div>
-                <div class="item" th:text="${product.id}"></div>
                 <div class="item">Title</div>
                 <div class="item" th:text="${product.title}"></div>
                 <div class="item">Brand</div>
                 <div class="item" th:text="${product.brand}"></div>
                 <div class="item">Quantity</div>
                 <div class="item" th:text="${product.quantity}"></div>
-                <div class="item">Rate</div>
-                <div class="item" th:text="${product.rating}"></div>
-                <div class="item">Special Price</div>
-                <div class="item" th:text="${product.specialPrice}"></div>
                 <div class="item">Cate Name</div>
                 <div class="item" th:text="${product.category.name}"></div>
                 <div class="item">Specail Name</div>
                 <div class="item" th:text="${product.specialCategory.name}"></div>
-                <div class="item">Description</div>
-                <div class="item" th:text="${product.description}"></div>
+                <div class="item">Color</div>
+                <div class="item" th:text="${product.productcolor.name}"></div>
+                <div class="item">Size</div>
+                <div class="item" th:text="${product.productsize.name}"></div>
                 <div class="item">Action</div>
                 <div class="item">
                     <a class="buttonedit" th:href="@{'/admin/products/edit/' + ${product.id}}">Edit</a>

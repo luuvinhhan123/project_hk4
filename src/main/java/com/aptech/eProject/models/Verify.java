@@ -1,6 +1,6 @@
+/*
 package com.aptech.eProject.models;
 
-import com.aptech.eProject.types.RoleType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -31,3 +31,4 @@ public class Verify extends Model {
 	@Column(name = "user_id")
 	private Timestamp userId;
 }
+*/

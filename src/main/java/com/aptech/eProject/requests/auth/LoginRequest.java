@@ -1,6 +1,5 @@
 package com.aptech.eProject.requests.auth;
 
-import com.aptech.eProject.models.User;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;

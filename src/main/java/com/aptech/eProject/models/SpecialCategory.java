@@ -21,7 +21,7 @@ public class SpecialCategory {
 
     @NotBlank
     @Size(min = 3, max = 100, message = "Category title must be between 5 and 100 characters length")
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String name;
 
     @OneToMany(mappedBy = "specialCategory", fetch = FetchType.EAGER)

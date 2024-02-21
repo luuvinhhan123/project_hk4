@@ -1,6 +1,5 @@
 package com.aptech.eProject.services;
 
-import com.aptech.eProject.models.Category;
 import com.aptech.eProject.models.SpecialCategory;
 import com.aptech.eProject.repositories.SpecailCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;

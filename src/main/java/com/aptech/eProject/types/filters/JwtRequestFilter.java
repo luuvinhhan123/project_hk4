@@ -1,4 +1,4 @@
-package com.aptech.eProject.filters;
+package com.aptech.eProject.types.filters;
 
 import com.aptech.eProject.models.User;
 import com.auth0.jwt.JWT;

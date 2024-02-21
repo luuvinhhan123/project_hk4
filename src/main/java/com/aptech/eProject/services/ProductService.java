@@ -1,5 +1,7 @@
 package com.aptech.eProject.services;
 
+import com.aptech.eProject.models.EOrderStatus;
+import com.aptech.eProject.models.Order;
 import com.aptech.eProject.models.Product;
 import com.aptech.eProject.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +18,21 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public Product findProductByTitle(String title) {
+    public Product findProductByTitle(String title)
+    {
         return productRepository.findByTitle(title);
     }
+
+    public List<Product> searchByProductName(String title) {
+        // Thêm ký tự đại diện '%' trước và sau tiêu đề để tìm kiếm một phần của tiêu đề
+        String searchTitle = "%" + title + "%";
+        return productRepository.findListByProductName(searchTitle);
+    }
+
+    public Product findProductByTitleSizeAndColor(String title, Long sizeId, Long colorId) {
+        return productRepository.findProductByTitleSizeAndColor(title, sizeId, colorId);
+    }
+
 
     public Product findById(int id) {
         return productRepository.findById(id).get();
@@ -62,4 +76,5 @@ public class ProductService {
             return false;
         }
     }
+
 }

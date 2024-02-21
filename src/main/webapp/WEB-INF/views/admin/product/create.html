@@ -58,7 +58,7 @@
                                  "https://media.geeksforgeeks.org/wp-content/uploads/20221210183322/9.png"
                          class="nav-img"
                          alt="articles">
-                    <h4><a th:href="@{/admin/categories}" class="buttonredirect">Category</a></h4>
+                    <h4><a th:href="@{/admin/categories}" class="buttonredirect">Categories</a></h4>
                 </div>
 
                 <div class="nav-option option5">
@@ -69,6 +69,21 @@
                     <h4><a th:href="@{/admin/categorisations}" class="buttonredirect">SpecailCate</a></h4>
                 </div>
 
+                <div class="nav-option option5">
+                    <img src=
+                                 "https://media.geeksforgeeks.org/wp-content/uploads/20221210183323/10.png"
+                         class="nav-img"
+                         alt="blog">
+                    <h4><a th:href="@{/admin/productsize}" class="buttonredirect">ProductSize</a></h4>
+                </div>
+
+                <div class="nav-option option5">
+                    <img src=
+                                 "https://media.geeksforgeeks.org/wp-content/uploads/20221210183323/10.png"
+                         class="nav-img"
+                         alt="blog">
+                    <h4><a th:href="@{/admin/productcolor}" class="buttonredirect">ProductColor</a></h4>
+                </div>
 
                 <div class="nav-option option3">
                     <img src=
@@ -76,7 +91,7 @@
                          class="nav-img"
                          alt="institution">
 
-                    <h4><a th:href="@{/admin/products}" class="buttonredirect">Product</a></h4>
+                    <h4><a th:href="@{/admin/products}" class="buttonredirect">Products</a></h4>
                 </div>
 
                 <div class="nav-option option4">
@@ -116,11 +131,14 @@
         <div class="report-container">
             <div class="report-header">
                 <h1 class="recent-Articles">Create product</h1>
-                <button class="view"><a style="text-decoration: none;color: white"  th:href="@{/admin/products}">View All</a></button>
+                <button class="view"><a style="text-decoration: none;color: white" th:href="@{/admin/products}">View
+                    All</a></button>
             </div>
             <div class="formstyle">
                 <form role="form" th:action="@{/admin/products/create}" th:object="${product}" method="post">
                     <div th:errors="*{title}" style="color: red" th:if="${#fields.hasErrors('title')}"></div>
+                    <div th:errors="*{productcolor}" style="color: red" th:if="${#fields.hasErrors('productcolor')}"></div>
+                    <div th:errors="*{productsize}" style="color: red" th:if="${#fields.hasErrors('productsize')}"></div>
                     <label>Title</label>
                     <input type="text" class="inputstyle" th:field="*{title}" placeholder="not null" required>
 
@@ -134,25 +152,48 @@
                     <input type="text" class="inputstyle" th:field="*{price}" placeholder="not null" required>
 
                     <label>Rate</label>
-                    <input type="text" class="inputstyle" th:field="*{rating}" placeholder="not null" required>
+                    <select class="inputstyle" th:field="*{rating}" required>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3" selected>3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
 
                     <label>description</label>
-                    <input type="text" class="inputstyle" th:field="*{description}" placeholder="not null" required>
+                    <input type="text" class="inputstyle" th:field="*{description}" placeholder="not null" minlength="6" required>
 
                     <div class="form-group">
                         <label>Category</label>
-                        <label for="dropDownList"></label><select class="form-control" id="dropDownList" th:field="*{category}" required>
-                            <option value="">Select Category</option>
-                            <option name="id" th:each="cat : ${categories}" th:value="${cat.getId()} "
-                                    th:text="${cat.getName()}"></option>
-                        </select>
+                        <label for="dropDownList"></label><select class="form-control" id="dropDownList"
+                                                                  th:field="*{category}" required>
+                        <option value="">Select Category</option>
+                        <option name="id" th:each="cat : ${categories}" th:value="${cat.getId()} "
+                                th:text="${cat.getName()}"></option>
+                    </select>
 
                         <label>Specail Cate</label>
-                        <label for="dropDownList1"></label><select class="form-control" id="dropDownList1" th:field="*{specialCategory}" required>
-                            <option value="">Select SpecailCate</option>
-                            <option  name="id" th:each="specailcate : ${specailcates}" th:value="${specailcate.id}"
-                                    th:text="${specailcate.name}"></option>
-                        </select>
+                        <label for="dropDownList1"></label><select class="form-control" id="dropDownList1"
+                                                                   th:field="*{specialCategory}" required>
+                        <option value="">Select SpecailCate</option>
+                        <option name="id" th:each="specailcate : ${specailcates}" th:value="${specailcate.id}"
+                                th:text="${specailcate.name}"></option>
+                    </select>
+
+                        <label>Size</label>
+                        <label for="dropDownList2"></label><select class="form-control" id="dropDownList2"
+                                                                   th:field="*{productsize}" required>
+                        <option value="">Select Size</option>
+                        <option name="id" th:each="productsize : ${productsizes}" th:value="${productsize.id}"
+                                th:text="${productsize.name}"></option>
+                    </select>
+                        <label>Color</label>
+                        <label for="dropDownList3"></label><select class="form-control" id="dropDownList3"
+                                                                   th:field="*{productcolor}" required>
+                        <option value="">Select Color</option>
+                        <option name="id" th:each="productcolor : ${productcolors}" th:value="${productcolor.id}"
+                                th:text="${productcolor.name}"></option>
+                    </select>
                     </div>
 
 
@@ -178,6 +219,7 @@
         box-sizing: border-box;
         font-family: "Poppins", sans-serif;
     }
+
     :root {
         --background-color1: #fafaff;
         --background-color2: #ffffff;
@@ -189,6 +231,7 @@
         --one-use-color: #3f0097;
         --two-use-color: #5500cb;
     }
+
     body {
         background-color: var(--background-color4);
         max-width: 100%;
@@ -208,17 +251,18 @@
         align-items: center;
     }
 
-    .buttonedit{
+    .buttonedit {
         text-decoration: none;
         color: blue;
     }
-    .buttondelete{
+
+    .buttondelete {
         text-decoration: none;
         color: red;
     }
 
-    .error-message{
-        color:red;
+    .error-message {
+        color: red;
     }
 
     .logo {
@@ -227,19 +271,23 @@
         color: rgb(47, 141, 70);
     }
 
-    .actiontest{
+    .actiontest {
         text-decoration: none;
     }
+
     .icn {
         height: 30px;
     }
+
     .menuicn {
         cursor: pointer;
     }
-    .buttonredirect{
+
+    .buttonredirect {
         text-decoration: none;
         color: black;
     }
+
     .searchbar,
     .message,
     .logosec {
@@ -266,6 +314,7 @@
         outline: none;
         border: none;
     }
+
     .searchbtn {
         width: 50px;
         height: 42px;
@@ -282,6 +331,7 @@
         position: relative;
         cursor: pointer;
     }
+
     .circle {
         height: 7px;
         width: 7px;
@@ -291,6 +341,7 @@
         left: 19px;
         top: 8px;
     }
+
     .dp {
         height: 40px;
         width: 40px;
@@ -301,6 +352,7 @@
         justify-content: center;
         overflow: hidden;
     }
+
     .main-container {
         display: flex;
         width: 100vw;
@@ -308,6 +360,7 @@
         top: 70px;
         z-index: 1;
     }
+
     .dpicn {
         height: 42px;
     }
@@ -321,12 +374,13 @@
     }
 
     .main::-webkit-scrollbar-thumb {
-        background-image:
-                linear-gradient(to bottom, rgb(0, 0, 85), rgb(0, 0, 50));
+        background-image: linear-gradient(to bottom, rgb(0, 0, 85), rgb(0, 0, 50));
     }
+
     .main::-webkit-scrollbar {
         width: 5px;
     }
+
     .main::-webkit-scrollbar-track {
         background-color: #9e9e9eb2;
     }
@@ -338,6 +392,7 @@
         flex-wrap: wrap;
         gap: 50px;
     }
+
     .nav {
         min-height: 91vh;
         width: 250px;
@@ -352,6 +407,7 @@
         overflow: hidden;
         padding: 30px 0 20px 10px;
     }
+
     .navcontainer {
         height: calc(100vh - 70px);
         width: 250px;
@@ -360,12 +416,15 @@
         overflow-x: hidden;
         transition: all 0.5s ease-in-out;
     }
+
     .navcontainer::-webkit-scrollbar {
         display: none;
     }
+
     .navclose {
         width: 80px;
     }
+
     .nav-option {
         border-radius: 25px;
         width: 250px;
@@ -376,11 +435,13 @@
         gap: 20px;
         transition: all 0.1s ease-in-out;
     }
+
     .nav-option:hover {
         border-left: 5px solid #a2a2a2;
         background-color: #dadada;
         cursor: pointer;
     }
+
     .nav-img {
         height: 30px;
     }
@@ -398,10 +459,12 @@
         color: white;
         cursor: pointer;
     }
+
     .option1:hover {
         border-left: 5px solid #010058af;
         background-color: var(--Border-color);
     }
+
     .box {
         height: 130px;
         width: 230px;
@@ -414,6 +477,7 @@
         cursor: pointer;
         transition: transform 0.3s ease-in-out;
     }
+
     .box:hover {
         transform: scale(1.08);
     }
@@ -421,12 +485,15 @@
     .box:nth-child(1) {
         background-color: var(--one-use-color);
     }
+
     .box:nth-child(2) {
         background-color: var(--two-use-color);
     }
+
     .box:nth-child(3) {
         background-color: var(--one-use-color);
     }
+
     .box:nth-child(4) {
         background-color: var(--two-use-color);
     }
@@ -434,9 +501,11 @@
     .box img {
         height: 50px;
     }
+
     .box .text {
         color: white;
     }
+
     .topic {
         font-size: 13px;
         font-weight: 400;
@@ -457,6 +526,7 @@
         box-shadow: 3px 3px 10px rgb(188, 188, 188);
         padding: 0px 20px 20px 20px;
     }
+
     .report-header {
         height: 80px;
         width: 100%;
@@ -489,6 +559,7 @@
         overflow-x: auto;
         padding: 20px;
     }
+
     .report-topic-heading,
     .item1 {
         width: 1120px;
@@ -496,6 +567,7 @@
         justify-content: space-between;
         align-items: center;
     }
+
     .t-op {
         font-size: 18px;
         letter-spacing: 0px;
@@ -509,6 +581,7 @@
     .item1 {
         margin-top: 20px;
     }
+
     .t-op-nextlvl {
         font-size: 14px;
         letter-spacing: 0px;
@@ -530,12 +603,15 @@
         .nav-img {
             height: 25px;
         }
+
         .nav-option {
             gap: 30px;
         }
+
         .nav-option h3 {
             font-size: 15px;
         }
+
         .report-topic-heading,
         .item1,
         .items {
@@ -547,17 +623,21 @@
         .nav-img {
             height: 30px;
         }
+
         .nav-option {
             gap: 30px;
         }
+
         .nav-option h3 {
             font-size: 20px;
         }
+
         .report-topic-heading,
         .item1,
         .items {
             width: 700px;
         }
+
         .navcontainer {
             width: 100vw;
             position: absolute;
@@ -565,25 +645,31 @@
             top: 0;
             left: -100vw;
         }
+
         .nav {
             width: 100%;
             position: absolute;
         }
+
         .navclose {
             left: 00px;
         }
+
         .searchbar {
             display: none;
         }
+
         .main {
             padding: 40px 30px 30px 30px;
         }
+
         .searchbar2 {
             width: 100%;
             display: flex;
             margin: 0 0 40px 0;
             justify-content: center;
         }
+
         .searchbar2 input {
             width: 250px;
             height: 42px;
@@ -599,31 +685,40 @@
         .message {
             display: none;
         }
+
         .logosec {
             width: 100%;
             justify-content: space-between;
         }
+
         .logo {
             font-size: 20px;
         }
+
         .menuicn {
             height: 25px;
         }
+
         .nav-img {
             height: 25px;
         }
+
         .nav-option {
             gap: 25px;
         }
+
         .nav-option h3 {
             font-size: 12px;
         }
+
         .nav-upper-options {
             gap: 15px;
         }
+
         .recent-Articles {
             font-size: 20px;
         }
+
         .report-topic-heading,
         .item1,
         .items {
@@ -635,15 +730,18 @@
         .recent-Articles {
             font-size: 17px;
         }
+
         .view {
             width: 60px;
             font-size: 10px;
             height: 27px;
         }
+
         .report-header {
             height: 60px;
             padding: 10px 10px 5px 10px;
         }
+
         .searchbtn img {
             height: 20px;
         }
@@ -653,40 +751,50 @@
         .recent-Articles {
             font-size: 12px;
         }
+
         .view {
             width: 50px;
             font-size: 8px;
             height: 27px;
         }
+
         .report-header {
             height: 60px;
             padding: 10px 5px 5px 5px;
         }
+
         .t-op {
             font-size: 12px;
         }
+
         .t-op-nextlvl {
             font-size: 10px;
         }
+
         .report-topic-heading,
         .item1,
         .items {
             width: 300px;
         }
+
         .report-body {
             padding: 10px;
         }
+
         .label-tag {
             width: 70px;
         }
+
         .searchbtn {
             width: 40px;
         }
+
         .searchbar2 input {
             width: 180px;
         }
     }
-    .inputstyle{
+
+    .inputstyle {
         width: 100%;
         padding: 12px 20px;
         margin: 8px 0;
@@ -696,7 +804,7 @@
         box-sizing: border-box;
     }
 
-    .inputstylesubmit{
+    .inputstylesubmit {
         width: 100%;
         background-color: #4CAF50;
         color: white;

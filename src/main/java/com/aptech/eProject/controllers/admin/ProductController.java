@@ -1,12 +1,11 @@
 package com.aptech.eProject.controllers.admin;
 
-import com.aptech.eProject.models.Category;
-import com.aptech.eProject.models.SpecialCategory;
-import com.aptech.eProject.services.CategoryService;
-import com.aptech.eProject.services.SpeculateCategoryService;
-import org.springframework.ui.Model;
+import com.aptech.eProject.models.EOrderStatus;
+import com.aptech.eProject.models.Order;
 import com.aptech.eProject.models.Product;
-import com.aptech.eProject.services.ProductService;
+import com.aptech.eProject.models.ProductSize;
+import com.aptech.eProject.services.*;
+import org.springframework.ui.Model;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +26,12 @@ public class ProductController {
     CategoryService categoryservice;
 
     @Autowired
+    ProductSizeService productSizeService;
+
+    @Autowired
+    ProductColorService productColorService;
+
+    @Autowired
     SpeculateCategoryService speculateCategoryService;
 
     @GetMapping("")
@@ -37,26 +42,19 @@ public class ProductController {
     }
 
     @GetMapping("/search")
-    public String search(Model model, @RequestParam(value = "title", required = false) String title) {
-        if (title == null || title.isEmpty()) {
-            // Nếu không nhập gì, lấy tất cả sản phẩm
-            List<Product> allProducts = productService.getAll();
-            model.addAttribute("products", allProducts);
+    public String searchByOrderStatus(@RequestParam(value = "title", required = false) String title, Model model) {
+        List<Product> products;
+        if (title == null) {
+            // Nếu không nhập gì, lấy tất cả đơn hàng
+            products = productService.getAll();
         } else {
-            // Nếu nhập từ khóa tìm kiếm, tìm sản phẩm theo tiêu đề
-            Product searchProduct = productService.findProductByTitle(title);
-            if (searchProduct != null) {
-                // Nếu sản phẩm được tìm thấy, thêm nó vào model để hiển thị trên trang
-                model.addAttribute("products", Collections.singletonList(searchProduct));
-            } else {
-                // Nếu không tìm thấy sản phẩm, thông báo cho người dùng
-                model.addAttribute("message", "No product found with the title: " + title);
-            }
+            model.addAttribute("products", productService.getAll());
+            // Nếu nhập từ khóa tìm kiếm, tìm đơn hàng theo trạng thái
+            products = productService.searchByProductName(title);
         }
-        // Trả về trang hiển thị danh sách sản phẩm
-        return "admin/product/index";
+        model.addAttribute("products", products);
+        return "admin/product/index"; // Assuming the view name is "admin/order/index"
     }
-
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable String id) {
@@ -98,6 +96,8 @@ public class ProductController {
         model.addObject("product", new Product());
         model.addObject("categories", categoryservice.getAll());
         model.addObject("specailcates", speculateCategoryService.getAll());
+        model.addObject("productsizes", productSizeService.getAll());
+        model.addObject("productcolors", productColorService.getAll());
         model.setViewName("admin/product/create");
         return model;
     }
@@ -105,20 +105,27 @@ public class ProductController {
     @PostMapping("/create")
     public String createProduct(Model model, @Valid Product product, BindingResult result) {
 
-        Product existingProduct = productService.findProductByTitle(product.getTitle());
-        if (existingProduct != null && existingProduct.getTitle() != null && !existingProduct.getTitle().isEmpty()) {
+        Product existingProduct = productService.findProductByTitleSizeAndColor(product.getTitle(), (long) product.getProductsize().getId(), (long) product.getProductcolor().getId());
+        if (existingProduct != null) {
             model.addAttribute("categories", categoryservice.getAll());
             model.addAttribute("specailcates", speculateCategoryService.getAll());
-            result.rejectValue("title",null,  "There is already a product registered with the same name");
+            model.addAttribute("productsizes", productSizeService.getAll());
+            model.addAttribute("productcolors", productColorService.getAll());
+            result.rejectValue("title", null, "There is already a product registered with the same product");
+            result.rejectValue("description", null, "There is already a product registered with the same product");
             return "admin/product/create";
-        }   if(result.hasErrors()) {
+        }
+
+        if (result.hasErrors()) {
             model.addAttribute("categories", categoryservice.getAll());
             model.addAttribute("specailcates", speculateCategoryService.getAll());
+            model.addAttribute("productsizes", productSizeService.getAll());
+            model.addAttribute("productcolors", productColorService.getAll());
             return "admin/product/create";
         }
 
         productService.create(product);
 
         return "redirect:/admin/products";
-    }
-}
+
+    }}

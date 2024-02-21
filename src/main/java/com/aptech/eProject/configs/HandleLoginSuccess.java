@@ -36,9 +36,9 @@ public class HandleLoginSuccess implements AuthenticationSuccessHandler {
         }
 
         if (hasUserRole) {
-            redirectStrategy.sendRedirect(arg0, arg1, "/admin");
+            redirectStrategy.sendRedirect(arg0, arg1, "/admin/productcolor");
         } else if (hasAdminRole) {
-            redirectStrategy.sendRedirect(arg0, arg1, "/signup-signin");
+            redirectStrategy.sendRedirect(arg0, arg1, "/admin/productcolor");
         } else {
             throw new IllegalStateException();
         }

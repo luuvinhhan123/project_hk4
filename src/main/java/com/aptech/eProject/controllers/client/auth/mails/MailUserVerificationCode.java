@@ -1,4 +1,4 @@
-package com.aptech.eProject.mails;
+package com.aptech.eProject.controllers.client.auth.mails;
 
 import com.aptech.eProject.utils.MailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 public class MailUserVerificationCode {
 	final String subject = "Send mail";
 
-	final String templateMail = "";
+	final String templateMail = "Your confirmation code is: %s";
 
 	@Autowired
 	MailUtil mailUtil;
