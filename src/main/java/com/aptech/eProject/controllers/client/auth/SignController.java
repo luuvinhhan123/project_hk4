@@ -22,6 +22,9 @@ import java.util.*;
 public class SignController {
 
 	@Autowired
+	private JavaMailSender javaMailSender;
+
+	@Autowired
 	UserService userService;
 
 	@GetMapping("")
@@ -30,28 +33,26 @@ public class SignController {
 		model.setViewName("auth/sign");
 		return model;
 	}
-
-	@PostMapping("")
-	public String login(Model model, @Valid User user, BindingResult result) {
-
+	@PostMapping("/login")
+	public String login (Model model, @Valid User user, BindingResult result){
 		User existingUser = userService.findUserByEmail(user.getEmail());
-		if (existingUser == null || !existingUser.getPassword().equals(user.getPassword())||!existingUser.getEmail().equals(user.getEmail())) {
+		if (existingUser == null || !existingUser.getPassword().equals(user.getPassword()) || !existingUser.getEmail().equals(user.getEmail())) {
 			result.rejectValue("email", null, "Invalid email");
 			return "auth/sign";
 		} else {
-			result.rejectValue("password", null, "Email does not exist");
-		}
+				result.rejectValue("password", null, "Email does not exist");
+			}
 
-		if (result.hasErrors()) {
-			model.addAttribute("user", user);
+			if (result.hasErrors()) {
+				model.addAttribute("user", user);
+				return "admin/usermanager/index";
+			}
+
+			if (result.hasErrors()) {
+				return "auth/sign";
+			}
 			return "admin/usermanager/index";
 		}
-
-		if (result.hasErrors()) {
-			return "auth/sign";
-		}
-		return "admin/usermanager/index";
-	}
 
 	/*@PostMapping("/register")
 	public String createUser(ModelAndView model, @Valid User user, BindingResult result) {
@@ -84,5 +85,5 @@ public class SignController {
 
 		return "auth/sign";
 	}*/
-}
+	}
 

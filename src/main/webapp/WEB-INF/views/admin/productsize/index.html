@@ -143,6 +143,10 @@
                 <tr>
                  <!--   <th><h3>ProductSizeId</h3></th>-->
                     <th><h3>ProductSizeName</h3></th>
+<<<<<<< HEAD
+=======
+                    <th><h3>Status</h3></th>
+>>>>>>> 04be7ea32ff3b0e3af25616e984ceab0e32aef12
                     <th><h3>Action</h3></th>
                 </tr>
                 </thead>
@@ -151,6 +155,10 @@
                 <tr style="margin: 10px" th:each="productsize : ${productsizes}">
                     <!--<th th:text="${productsize.id}"></th>-->
                     <th th:text="${productsize.name}"></th>
+<<<<<<< HEAD
+=======
+                    <th th:text="${productsize.status}"></th>
+>>>>>>> 04be7ea32ff3b0e3af25616e984ceab0e32aef12
                     <th>
                         <a class="buttonedit" th:href="@{'/admin/productsize/edit/' + ${productsize.id}}">Edit</a>
                         &nbsp;&nbsp;&nbsp;

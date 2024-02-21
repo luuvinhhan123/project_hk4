@@ -28,17 +28,18 @@ public class User extends Model {
     private String lastname;
 
     @Column(name = "phonenumber", nullable = true)
+
     @NotBlank
     @Size(min = 8, max = 10, message = "PhoneNumber must between 8 and 10 characters length")
     private String phonenumber;
 
-    @Email
-    @NotBlank
     @Column(name = "email", unique = true, nullable = true)
     private String email;
 
     @Column(name = "password", nullable = true)
+
     @NotBlank
+
     private String password;
 
     @Column(name = "role", nullable = true)

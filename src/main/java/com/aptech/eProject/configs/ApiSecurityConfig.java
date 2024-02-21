@@ -54,7 +54,15 @@ public class ApiSecurityConfig {
 				.sessionManagement(sessionManagement -> sessionManagement
 						.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 						.authorizeHttpRequests((request) -> request
+
 						.requestMatchers("/admin/**").permitAll()
+
+						.requestMatchers("/signup-signin/**").permitAll()
+						.requestMatchers("/signup-signin/login/**").permitAll()
+						//user manager
+						.requestMatchers("/admin/**").permitAll()
+						.requestMatchers("/admin").permitAll()
+
 						.anyRequest().authenticated()
 				)
 				.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)

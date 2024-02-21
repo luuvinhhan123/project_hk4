@@ -1,10 +1,7 @@
 package com.aptech.eProject.controllers.admin;
 
-import com.aptech.eProject.models.Category;
 import com.aptech.eProject.models.ProductColor;
-import com.aptech.eProject.services.CategoryService;
 import com.aptech.eProject.services.ProductColorService;
-import com.aptech.eProject.services.ProductSizeService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,7 +34,7 @@ public class ProductColorController {
     @GetMapping("/search")
     public String searchByOrderStatus(@RequestParam(value = "name", required = false) String name, Model model) {
         List<ProductColor> productColors;
-        if (name == null|| name.isEmpty())  {
+        if (name == null || name.isEmpty()) {
             // Nếu không nhập gì, lấy tất cả đơn hàng
             productColors = productColorService.getAll();
         } else {
@@ -57,14 +54,14 @@ public class ProductColorController {
 
     @PostMapping("/edit/{id}")
     public String update(Model model, @PathVariable String id, @Valid ProductColor productColor, BindingResult result) {
-        ProductColor detail =  productColorService.detail(Integer.parseInt(id));
+        ProductColor detail = productColorService.detail(Integer.parseInt(id));
         ProductColor existingCategory = productColorService.findProductColorByName(productColor.getName());
         if (existingCategory != null && existingCategory.getName() != null
                 && !existingCategory.getName().isEmpty()) {
             result.rejectValue("name", null,
                     "There is already an account registered with the same name");
         }
-        if (result.hasErrors() || detail == null ) {
+        if (result.hasErrors() || detail == null) {
             model.addAttribute("productColor", productColor);
             result.rejectValue("name", null,
                     "Cannot not update try again");
@@ -94,9 +91,9 @@ public class ProductColorController {
             result.rejectValue("name", null,
                     "There is already an color registered with the same name");
         }
-        if(result.hasErrors()) {
-            model.addAttribute("productcolor",productColor);
-            return"admin/productcolor/create";
+        if (result.hasErrors()) {
+            model.addAttribute("productcolor", productColor);
+            return "admin/productcolor/create";
         }
 
         productColorService.create(productColor);

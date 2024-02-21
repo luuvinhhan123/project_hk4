@@ -135,9 +135,75 @@
     </style>
 </head>
 <body>
+<<<<<<< HEAD
 <div class="background">
     <div class="shape"></div>
     <div class="shape"></div>
+=======
+
+<div class="cotn_principal">
+    <div class="cont_centrar">
+        <div class="cont_login">
+            <div class="cont_info_log_sign_up">
+                <div class="col_md_login">
+                    <div class="cont_ba_opcitiy">
+                        <h2>LOGIN</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <button class="btn_login" onclick="change_to_login()">LOGIN</button>
+                    </div>
+                </div>
+                <div class="col_md_sign_up">
+                    <div class="cont_ba_opcitiy">
+                        <h2>SIGN UP</h2>
+
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+
+                        <button class="btn_sign_up" onclick="change_to_sign_up()">SIGN UP</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="cont_back_info">
+                <div class="cont_img_back_grey">
+                    <img src="https://images.unsplash.com/42/U7Fc1sy5SCUDIu4tlJY3_NY_by_PhilippHenzler_philmotion.de.jpg?ixlib=rb-0.3.5&q=50&fm=jpg&crop=entropy&s=7686972873678f32efaf2cd79671673d" alt="" />
+                </div>
+
+            </div>
+            <form method="post" role="form" th:object="${user}">
+                <div th:if="${#fields.hasErrors('email')}" class="error-message">
+                    <p th:text="${#fields.errors('email')}"></p>
+                </div>
+            </form>
+            <div class="cont_forms" >
+                <div class="cont_img_back_">
+                    <img src="https://images.unsplash.com/42/U7Fc1sy5SCUDIu4tlJY3_NY_by_PhilippHenzler_philmotion.de.jpg?ixlib=rb-0.3.5&q=50&fm=jpg&crop=entropy&s=7686972873678f32efaf2cd79671673d" alt="" />
+                </div>
+                <form method="post" th:action="@{/signup-signin/login}">
+                    <div class="cont_form_login">
+                        <a href="#" onclick="hidden_login_and_sign_up()" ><i class="material-icons">&#xE5C4;</i></a>
+                        <h2>LOGIN</h2>
+                        <input type="email" id="email" name="email" placeholder="Email" />
+                        <input type="password" id="password" name="password" placeholder="Password" />
+                        <button class="btn_login" type="submit" onclick="change_to_login()">LOGIN</button>
+                    </div>
+                </form>
+                <form method="post" role="form" th:action="@{/signup-signin/register}" th:object="${user}">
+                    <div class="cont_form_sign_up">
+                        <a href="#" onclick="hidden_login_and_sign_up()"><i class="material-icons">&#xE5C4;</i></a>
+                        <h2>SIGN UP</h2>
+                        <input type="text" th:field="*{firstname}" placeholder="FirstName" required/>
+                        <input type="text" th:field="*{lastname}" placeholder="LastName" required/>
+                        <input type="text" th:field="*{phonenumber}" placeholder="PhoneNumber" required/>
+                        <input type="password" th:field="*{password}" placeholder="Password" required/>
+                        <input type="email" th:field="*{email}" placeholder="Email" />
+                        <button type="submit" class="btn_sign_up" onclick="change_to_sign_up()">SIGN UP</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+>>>>>>> 04be7ea32ff3b0e3af25616e984ceab0e32aef12
 </div>
 <form th:action="@{/admin/login}" th:object="${user}" method="post">
     <h3>Login Here</h3>
