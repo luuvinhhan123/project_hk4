@@ -33,13 +33,13 @@ public class User extends Model {
     @Size(min = 8, max = 10, message = "PhoneNumber must between 8 and 10 characters length")
     private String phonenumber;
 
+    @Email
+    @NotBlank
     @Column(name = "email", unique = true, nullable = true)
     private String email;
 
     @Column(name = "password", nullable = true)
-
     @NotBlank
-
     private String password;
 
     @Column(name = "role", nullable = true)
@@ -54,10 +54,10 @@ public class User extends Model {
     @JoinColumn(name = "profile_id", referencedColumnName = "id")
     private Profile profile;
 
-    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles = new ArrayList<>();
 
-    @OneToOne(mappedBy = "user", cascade = { CascadeType.PERSIST, CascadeType.MERGE }, orphanRemoval = true)
+    @OneToOne(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
     private Cart cart;
 }

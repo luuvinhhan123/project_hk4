@@ -59,7 +59,7 @@ public class CategoryController {
         if (existingCategory != null && existingCategory.getName() != null
                 && !existingCategory.getName().isEmpty()) {
             result.rejectValue("name", null,
-                    "There is already an account registered with the same name");
+                    "There is already an category registered with the same name");
         }
         if (result.hasErrors() || detail == null ) {
             model.addAttribute("category", category);
@@ -85,7 +85,7 @@ public class CategoryController {
     public String createCategory(Model model, @Valid Category category, BindingResult result) {
 
         Category existingCategory = categoryService.findCategoryByName(category.getName());
-        model.addAttribute("users", new User());
+
         if (existingCategory != null && existingCategory.getName() != null
                 && !existingCategory.getName().isEmpty()) {
             result.rejectValue("name", null,

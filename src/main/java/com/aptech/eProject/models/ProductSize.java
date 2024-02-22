@@ -19,9 +19,11 @@ import java.util.List;
 public class ProductSize {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id", nullable = false)
+    @Column(name="id", nullable = true)
     private int id;
 
+    @NotBlank
+    @Size(min = 1, max = 10, message = "Size must be between 1 and 10 characters length")
     @Column(nullable = true)
     private String name;
 

@@ -37,11 +37,7 @@ public class Product {
     private ProductSize productsize;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-
     @JoinColumn(name = "productcolor", referencedColumnName = "id")
-
-    @JoinColumn(name = "product_color", referencedColumnName = "id")
-
     private ProductColor productcolor;
 
     @Nullable

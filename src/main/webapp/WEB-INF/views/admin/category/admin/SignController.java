@@ -1,4 +1,4 @@
-package com.aptech.eProject.controllers.client.auth;
+package com.aptech.eProject.controllers.admin;
 
 import com.aptech.eProject.models.Role;
 import com.aptech.eProject.models.User;
@@ -33,17 +33,15 @@ public class SignController {
 		model.setViewName("auth/sign");
 		return model;
 	}
-	@PostMapping("/login")
+	@PostMapping("")
 	public String login (Model model, @Valid User user, BindingResult result){
 		User existingUser = userService.findUserByEmail(user.getEmail());
-		if (existingUser == null || !existingUser.getPassword().equals(user.getPassword()) || !existingUser.getEmail().equals(user.getEmail())) {
-			result.rejectValue("email", null, "Invalid email");
+		if (existingUser == null || !existingUser.getPassword().equals(user.getPassword())) {
+			result.rejectValue("email", null, "Invalid email or password");
 			return "auth/sign";
-		} else {
-				result.rejectValue("password", null, "Email does not exist");
-			}
+		}
 
-			if (result.hasErrors()) {
+		if (result.hasErrors()) {
 				model.addAttribute("user", user);
 				return "admin/usermanager/index";
 			}

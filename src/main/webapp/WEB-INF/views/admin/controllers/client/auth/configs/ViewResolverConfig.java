@@ -1,4 +1,4 @@
-package com.aptech.eProject.configs;
+package com.aptech.eProject.controllers.client.auth.configs;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

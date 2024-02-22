@@ -66,7 +66,7 @@
                                  "https://media.geeksforgeeks.org/wp-content/uploads/20221210183323/10.png"
                          class="nav-img"
                          alt="blog">
-                    <h4><a th:href="@{/admin/categorisations}" class="buttonredirect">SpecailCate</a></h4>
+                    <h4><a th:href="@{/admin/categorisations}" class="buttonredirect">SpecialCate</a></h4>
                 </div>
 
                 <div class="nav-option option5">
@@ -130,15 +130,15 @@
 
         <div class="report-container">
             <div class="report-header">
-                <h1 class="recent-Articles">Create SpecailCate</h1>
+                <h1 class="recent-Articles">Create SpecialCate</h1>
                 <button class="view"><a style="text-decoration: none;color: white"  th:href="@{/admin/categorisations}">View All</a></button>
             </div>
             <div class="formstyle">
-                <form role="form" th:action="@{/admin/categorisations/create}" th:object="${speculates}" method="post">
-                    <div th:errors="*{name}" style="color: red" th:if="${#fields.hasErrors('name')}"></div>
-                    <label>CatespecailName</label>
+                <form role="form" th:action="@{/admin/categorisations/create}" th:object="${specialCategory}" method="post">
+                    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color:red"></div>
+                    <label>Cate specialName</label>
                     <label>
-                        <input type="text" class="inputstyle" th:field="*{name}" placeholder="not null" required>
+                        <input type="text" minlength="3" maxlength="100" class="inputstyle" th:field="*{name}" placeholder="not null" required>
                     </label>
                     <input type="submit" class="inputstylesubmit" value="Submit">
                 </form>

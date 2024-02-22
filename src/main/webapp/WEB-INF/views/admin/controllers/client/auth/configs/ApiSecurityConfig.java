@@ -1,4 +1,4 @@
-package com.aptech.eProject.configs;
+package com.aptech.eProject.controllers.client.auth.configs;
 
 import com.aptech.eProject.types.filters.JwtRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;

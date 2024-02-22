@@ -2,6 +2,7 @@ package com.aptech.eProject.controllers.admin;
 
 import com.aptech.eProject.models.Category;
 import com.aptech.eProject.models.ProductSize;
+import com.aptech.eProject.models.User;
 import com.aptech.eProject.services.CategoryService;
 import com.aptech.eProject.services.ProductSizeService;
 import jakarta.validation.Valid;
@@ -41,23 +42,23 @@ public class ProductSizeController {
     }
 
     @PostMapping("/edit/{id}")
-    public String update(Model model, @PathVariable String id, @Valid ProductSize productSize, BindingResult result) {
+    public String update(Model model, @PathVariable String id, @Valid ProductSize productsize, BindingResult result) {
         ProductSize detail =  productSizeService.detail(Integer.parseInt(id));
-        ProductSize existingCategory = productSizeService.findProductSizeByName(productSize.getName());
+        ProductSize existingCategory = productSizeService.findProductSizeByName(productsize.getName());
         if (existingCategory != null && existingCategory.getName() != null
                 && !existingCategory.getName().isEmpty()) {
             result.rejectValue("name", null,
                     "There is already an size registered with the same name");
         }
         if (result.hasErrors() || detail == null ) {
-            model.addAttribute("productsize", productSize);
+            model.addAttribute("productsize", productsize);
             result.rejectValue("name", null,
                     "Cannot not update try again");
             return "admin/productsize/edit";
         }
 
-        detail.setId(productSize.getId());
-        detail.setName(productSize.getName());
+        detail.setId(productsize.getId());
+        detail.setName(productsize.getName());
         productSizeService.update(detail);
         return "redirect:/admin/productsize";
     }
@@ -74,18 +75,20 @@ public class ProductSizeController {
 
         ProductSize existingSize = productSizeService.findProductSizeByName(productsize.getName());
 
-        if (existingSize != null && existingSize.getName() != null
-                && !existingSize.getName().isEmpty()) {
-            result.rejectValue("name", null,
-                    "There is already an Size registered with the same name");
+        if (existingSize != null) {
+            result.rejectValue("name", null, "There is already a Size registered with the same name");
+            model.addAttribute("productsize", productsize);
+            return "admin/productsize/create"; // Trả về trang create để hiển thị lỗi
         }
+
         if(result.hasErrors()) {
-            model.addAttribute("productsize",productsize);
-            return"admin/productsize/create";
+            model.addAttribute("productsize", productsize);
+            return "admin/productsize/create"; // Trả về trang create để hiển thị lỗi validation
         }
 
         productSizeService.create(productsize);
 
         return "redirect:/admin/productsize";
     }
+
 }

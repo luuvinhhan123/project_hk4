@@ -21,7 +21,7 @@ public class Category {
     private int id;
 
     @NotBlank
-    @Size(min = 3, max = 100, message = "Category title must be between 5 and 100 characters length")
+    @Size(min = 3, max = 100, message = "Category title must be between 3 and 100 characters length")
     @Column(nullable = true)
     private String name;
 

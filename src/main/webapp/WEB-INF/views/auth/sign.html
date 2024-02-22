@@ -8,218 +8,215 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
     <!--Stylesheet-->
-    <style media="screen">
-        *,
-        *:before,
-        *:after{
-            padding: 0;
-            margin: 0;
-            box-sizing: border-box;
-        }
-        body{
-            background: rgb(63,94,251);
-        }
-        .background{
-            width: 430px;
-            height: 520px;
-            position: absolute;
-            transform: translate(-50%,-50%);
-            left: 50%;
-            top: 50%;
-        }
-        .background .shape{
-            height: 200px;
-            width: 200px;
-            position: absolute;
-            border-radius: 50%;
-        }
-        .shape:first-child{
-            background: linear-gradient(
-                    #1845ad,
-                    #23a2f6
-            );
-            left: -80px;
-            top: -80px;
-        }
-        .shape:last-child{
-            background: linear-gradient(
-                    to right,
-                    #ff512f,
-                    #f09819
-            );
-            right: -30px;
-            bottom: -80px;
-        }
-        form{
-            height: 520px;
-            width: 400px;
-            background-color: rgba(255,255,255,0.13);
-            position: absolute;
-            transform: translate(-50%,-50%);
-            top: 50%;
-            left: 50%;
-            border-radius: 10px;
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255,255,255,0.1);
-            box-shadow: 0 0 40px rgba(8,7,16,0.6);
-            padding: 50px 35px;
-        }
-        form *{
-            font-family: 'Poppins',sans-serif;
-            color: #ffffff;
-            letter-spacing: 0.5px;
-            outline: none;
-            border: none;
-        }
-        form h3{
-            font-size: 32px;
-            font-weight: 500;
-            line-height: 42px;
-            text-align: center;
-        }
-
-        label{
-            display: block;
-            margin-top: 30px;
-            font-size: 16px;
-            font-weight: 500;
-        }
-        input{
-            display: block;
-            height: 50px;
-            width: 100%;
-            background-color: rgba(255,255,255,0.07);
-            border-radius: 3px;
-            padding: 0 10px;
-            margin-top: 8px;
-            font-size: 14px;
-            font-weight: 300;
-        }
-        ::placeholder{
-            color: #e5e5e5;
-        }
-        button{
-            margin-top: 50px;
-            width: 100%;
-            background-color: #ffffff;
-            color: #080710;
-            padding: 15px 0;
-            font-size: 18px;
-            font-weight: 600;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .social{
-            margin-top: 30px;
-            display: flex;
-        }
-        .social div{
-            background: red;
-            width: 150px;
-            border-radius: 3px;
-            padding: 5px 10px 10px 5px;
-            background-color: rgba(255,255,255,0.27);
-            color: #eaf0fb;
-            text-align: center;
-        }
-        .social div:hover{
-            background-color: rgba(255,255,255,0.47);
-        }
-        .social .fb{
-            margin-left: 25px;
-        }
-        .social i{
-            margin-right: 4px;
-        }
-
-    </style>
 </head>
 <body>
-<<<<<<< HEAD
-<div class="background">
-    <div class="shape"></div>
-    <div class="shape"></div>
-=======
 
-<div class="cotn_principal">
-    <div class="cont_centrar">
-        <div class="cont_login">
-            <div class="cont_info_log_sign_up">
-                <div class="col_md_login">
-                    <div class="cont_ba_opcitiy">
-                        <h2>LOGIN</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        <button class="btn_login" onclick="change_to_login()">LOGIN</button>
+<div id="back">
+    <div class="backRight"></div>
+    <div class="backLeft"></div>
+</div>
+
+<div id="slideBox">
+    <div class="topLayer">
+        <div class="left">
+            <div class="content">
+                <h2>Sign Up</h2>
+                <form method="post" onsubmit="return false;">
+                    <div class="form-group">
+                        <input type="text" placeholder="username"/>
                     </div>
-                </div>
-                <div class="col_md_sign_up">
-                    <div class="cont_ba_opcitiy">
-                        <h2>SIGN UP</h2>
-
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-
-                        <button class="btn_sign_up" onclick="change_to_sign_up()">SIGN UP</button>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="cont_back_info">
-                <div class="cont_img_back_grey">
-                    <img src="https://images.unsplash.com/42/U7Fc1sy5SCUDIu4tlJY3_NY_by_PhilippHenzler_philmotion.de.jpg?ixlib=rb-0.3.5&q=50&fm=jpg&crop=entropy&s=7686972873678f32efaf2cd79671673d" alt="" />
-                </div>
-
-            </div>
-            <form method="post" role="form" th:object="${user}">
-                <div th:if="${#fields.hasErrors('email')}" class="error-message">
-                    <p th:text="${#fields.errors('email')}"></p>
-                </div>
-            </form>
-            <div class="cont_forms" >
-                <div class="cont_img_back_">
-                    <img src="https://images.unsplash.com/42/U7Fc1sy5SCUDIu4tlJY3_NY_by_PhilippHenzler_philmotion.de.jpg?ixlib=rb-0.3.5&q=50&fm=jpg&crop=entropy&s=7686972873678f32efaf2cd79671673d" alt="" />
-                </div>
-                <form method="post" th:action="@{/signup-signin/login}">
-                    <div class="cont_form_login">
-                        <a href="#" onclick="hidden_login_and_sign_up()" ><i class="material-icons">&#xE5C4;</i></a>
-                        <h2>LOGIN</h2>
-                        <input type="email" id="email" name="email" placeholder="Email" />
-                        <input type="password" id="password" name="password" placeholder="Password" />
-                        <button class="btn_login" type="submit" onclick="change_to_login()">LOGIN</button>
-                    </div>
+                    <div class="form-group"></div>
+                    <div class="form-group"></div>
+                    <div class="form-group"></div>
                 </form>
-                <form method="post" role="form" th:action="@{/signup-signin/register}" th:object="${user}">
-                    <div class="cont_form_sign_up">
-                        <a href="#" onclick="hidden_login_and_sign_up()"><i class="material-icons">&#xE5C4;</i></a>
-                        <h2>SIGN UP</h2>
-                        <input type="text" th:field="*{firstname}" placeholder="FirstName" required/>
-                        <input type="text" th:field="*{lastname}" placeholder="LastName" required/>
-                        <input type="text" th:field="*{phonenumber}" placeholder="PhoneNumber" required/>
-                        <input type="password" th:field="*{password}" placeholder="Password" required/>
-                        <input type="email" th:field="*{email}" placeholder="Email" />
-                        <button type="submit" class="btn_sign_up" onclick="change_to_sign_up()">SIGN UP</button>
-                    </div>
+                <button id="goLeft" class="off">Login</button>
+                <button>Sign up</button>
+            </div>
+        </div>
+        <div class="right">
+            <div class="content">
+                <h2>Login</h2>
+                <form th:action="@{/admin/login}" th:object="${user}" method="post">
+                  <div>
+                      <label>Username:</label>
+                      <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color:red"></div>
+                      <label>
+                          <input type="text" th:field="*{email}">
+                      </label>
+                  </div>
+
+                  <div>
+                      <label>Password:</label>
+                      <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color:red"></div>
+                      <label>
+                          <input type="password" th:field="*{password}">
+                      </label>
+                  </div>
+                    <button type="submit">Log In</button>
                 </form>
             </div>
         </div>
     </div>
->>>>>>> 04be7ea32ff3b0e3af25616e984ceab0e32aef12
 </div>
-<form th:action="@{/admin/login}" th:object="${user}" method="post">
-    <h3>Login Here</h3>
-    <label>Email:</label>
-    <label>
-        <input type="text" th:field="*{email}">
-    </label>
-    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color:red"></span>
 
-    <label>Password:</label>
-    <label>
-        <input type="password" th:field="*{password}">
-    </label>
-    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color:red"></span>
 
-    <button type="submit">Log In</button>
-</form>
 </body>
 </html>
+<style>
+    body {
+        height: 100%;
+        overflow: hidden;
+        width: 100% !important;
+        box-sizing: border-box;
+        font-family: 'Roboto', sans-serif;
+    }
+
+
+    .backRight {
+        position: absolute;
+        right: 0;
+        width: 50%;
+        height: 100%;
+        background: #3498db url(https://download.unsplash.com/photo-1429041966141-44d228a42775);
+        background-size: cover;
+        background-position: 50% 50%;
+    }
+
+    .backLeft {
+        position: absolute;
+        left: 0;
+        width: 50%;
+        height: 100%;
+        background: #e74c3c url(https://download.unsplash.com/photo-1428279148693-1cf2163ed67d);
+        background-size: cover;
+        background-position: 50% 50%;
+    }
+
+    #back {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: -999;
+    }
+
+    #slideBox {
+        width: 50%;
+        max-height: 100%;
+        height: 100%;
+        overflow: hidden;
+        margin-left: 50%;
+        position: absolute;
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    }
+
+    .topLayer {
+        width: 200%;
+        height: 100%;
+        position: relative;
+        left: 0;
+        left: -100%;
+    }
+
+    .left {
+        width: 50%;
+        height: 100%;
+        background: #2C3034;
+        left: 0;
+        position: absolute;
+    }
+
+    .right {
+        width: 50%;
+        height: 100%;
+        background: #f9f9f9;
+        right: 0;
+        position: absolute;
+    }
+
+    .content {
+        width: 250px;
+        margin: 0 auto;
+        top: 30%;
+        position: absolute;
+        left: 50%;
+        margin-left: -125px;
+    }
+
+    .content h2 {
+        color: #03A9F4;
+        font-weight: 300;
+        font-size: 35px;
+    }
+
+    button {
+        background: #03A9F4;
+        padding: 10px 16px;
+        width: auto;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 14px;
+        color: #fff;
+        line-height: 16px;
+        letter-spacing: 0.5px;
+        border-radius: 2px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.1);
+        border: 0;
+        outline: 0;
+        margin: 15px 15px 15px 0;
+        transition: all 0.25s;
+    }
+
+    button:hover {
+        background: #0288D1;
+        box-shadow: 0 4px 7px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .off {
+        background: none;
+        color: #03A9F4;
+        box-shadow: none;
+    }
+
+    .right .off:hover {
+        background: #eee;
+        color: #03A9F4;
+        box-shadow: none;
+    }
+
+    .left .off:hover {
+        box-shadow: none;
+        color: #03A9F4;
+        background: #363A3D;
+    }
+
+    input {
+        background: transparent;
+        border: 0;
+        outline: 0;
+        border-bottom: 1px solid #45494C;
+        font-size: 14px;
+        color: #959595;
+        padding: 8px 0;
+        margin-top: 20px;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $('#goRight').on('click', function () {
+            $('#slideBox').animate({
+                'marginLeft': '0'
+            });
+            $('.topLayer').animate({
+                'marginLeft': '100%'
+            });
+        });
+        $('#goLeft').on('click', function () {
+            $('#slideBox').animate({
+                'marginLeft': '50%'
+            });
+            $('.topLayer').animate({
+                'marginLeft': '0'
+            });
+        });
+    });
+</script>

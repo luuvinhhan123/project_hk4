@@ -53,38 +53,38 @@ public class ProductColorController {
     }
 
     @PostMapping("/edit/{id}")
-    public String update(Model model, @PathVariable String id, @Valid ProductColor productColor, BindingResult result) {
+    public String update(Model model, @PathVariable String id, @Valid ProductColor productcolor, BindingResult result) {
         ProductColor detail = productColorService.detail(Integer.parseInt(id));
-        ProductColor existingCategory = productColorService.findProductColorByName(productColor.getName());
+        ProductColor existingCategory = productColorService.findProductColorByName(productcolor.getName());
         if (existingCategory != null && existingCategory.getName() != null
                 && !existingCategory.getName().isEmpty()) {
             result.rejectValue("name", null,
                     "There is already an account registered with the same name");
         }
         if (result.hasErrors() || detail == null) {
-            model.addAttribute("productColor", productColor);
+            model.addAttribute("productcolor", productcolor);
             result.rejectValue("name", null,
                     "Cannot not update try again");
             return "admin/productcolor/edit";
         }
 
-        detail.setId(productColor.getId());
-        detail.setName(productColor.getName());
+        detail.setId(productcolor.getId());
+        detail.setName(productcolor.getName());
         productColorService.update(detail);
         return "redirect:/admin/productcolor";
     }
 
     @GetMapping("/create")
     public ModelAndView create(ModelAndView model) {
-        model.addObject("productcolor", new ProductColor());
+        model.addObject("preproductions", new ProductColor());
         model.setViewName("admin/productcolor/create");
         return model;
     }
 
     @PostMapping("/create")
-    public String createCategory(Model model, @Valid ProductColor productColor, BindingResult result) {
+    public String createCategory(Model model, @Valid ProductColor productcolor, BindingResult result) {
 
-        ProductColor existingCategory = productColorService.findProductColorByName(productColor.getName());
+        ProductColor existingCategory = productColorService.findProductColorByName(productcolor.getName());
 
         if (existingCategory != null && existingCategory.getName() != null
                 && !existingCategory.getName().isEmpty()) {
@@ -92,11 +92,11 @@ public class ProductColorController {
                     "There is already an color registered with the same name");
         }
         if (result.hasErrors()) {
-            model.addAttribute("productcolor", productColor);
+            model.addAttribute("preproductions", productcolor);
             return "admin/productcolor/create";
         }
 
-        productColorService.create(productColor);
+        productColorService.create(productcolor);
 
         return "redirect:/admin/productcolor";
     }

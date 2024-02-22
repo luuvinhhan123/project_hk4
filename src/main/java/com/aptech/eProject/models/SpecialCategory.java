@@ -20,7 +20,7 @@ public class SpecialCategory {
     private int id;
 
     @NotBlank
-    @Size(min = 3, max = 100, message = "Category title must be between 5 and 100 characters length")
+    @Size(min = 3, max = 100, message = "SpecialCategory title must be between 5 and 100 characters length")
     @Column(nullable = true)
     private String name;
 
